@@ -1,0 +1,1398 @@
+SMS_Advertisement				TABLE				/*http://msdn.microsoft.com/en-us/library/cc146108*/
+ActionInProgress				INT
+AdvertFlags						INT
+AdvertisementID					STRING
+AdvertisementName				STRING
+AssignedSchedule[]				SMS_ScheduleToken
+AssignedScheduleEnabled			BOOLEAN
+AssignedScheduleIsGMT			BOOLEAN
+AssignmentID					INT
+CollectionID					STRING
+Comment							STRING
+DeviceFlags						INT
+ExpirationTime					DATETIME
+ExpirationTimeEnabled			BOOLEAN
+ExpirationTimeIsGMT				BOOLEAN
+HierarchyPath					STRING
+IncludeSubCollection			BOOLEAN
+ISVData[]						INT
+ISVDataSize						INT
+MandatoryCountdown				INT
+PackageID						STRING
+PresentTime						DATETIME
+PresentTimeEnabled				BOOLEAN
+PresentTimeIsGMT				BOOLEAN
+Priority						INT
+ProgramName						STRING
+RemoteClientFlags				INT
+SourceSite						STRING
+TimeFlags						INT
+
+SMS_AdvertisementInfo			TABLE				/*http://msdn.microsoft.com/en-us/library/cc143360*/
+AdvertFlags						INT
+AdvertisementID					STRING
+AdvertisementName				STRING
+AdvertisementSourceSite			STRING
+AssignmentID					INT
+CollectionID					STRING
+CollectionName					STRING
+ExpirationTime					DATETIME
+PackageID						STRING
+PackageLanguage					STRING
+PackageManufacturer				STRING
+PackageName						STRING
+PackageType						INT
+PackageVersion					STRING
+PresentTime						DATETIME
+ProgramFlags					INT
+ProgramName						STRING
+TimeFlags						INT
+
+SMS_AdvertisementStatusInformation	TABLE				/*http://msdn.microsoft.com/en-us/library/cc146358*/
+MessageID							INT
+MessageName							STRING
+MessageState						INT
+MessageStateName					STRING
+
+SMS_AdvertisementStatusRootSummarizer	TABLE				/*http://msdn.microsoft.com/en-us/library/cc144371*/
+AdvertisementID							STRING
+AdvertisementName						STRING
+AdvertisementsFailed					INT
+AdvertisementsReceived					INT
+CollectionID							STRING
+CollectionName							STRING
+DisplaySchedule							STRING
+ExpirationTime							DATETIME
+PackageID								STRING
+PackageLanguage							STRING
+PackageManufacturer						STRING
+PackageName								STRING
+PackageVersion							STRING
+PresentTime								DATETIME
+ProgramName								STRING
+ProgramsFailed							INT
+ProgramsFailedMIF						INT
+ProgramsStarted							INT
+ProgramsSucceeded						INT
+ProgramsSucceededMIF					INT
+SourceSite								STRING
+TimeEnableFlag							INT
+
+SMS_AdvertisementStatusSummarizer	TABLE				/*http://msdn.microsoft.com/en-us/library/cc142982*/
+AdvertisementID						STRING
+AdvertisementsFailed				INT
+AdvertisementsReceived				INT
+DisplaySchedule						STRING
+LastUpdate							DATETIME
+ProgramsFailed						INT
+ProgramsFailedMIF					INT
+ProgramsStarted						INT
+ProgramsSucceeded					INT
+ProgramsSucceededMIF				INT
+SiteCode							STRING
+
+SMS_AdvertToSourceSite_a		TABLE				/*http://msdn.microsoft.com/en-us/library/cc143439*/
+advertSourceSite				ref:SMS_Site
+ownedAdvert						ref:SMS_Advertisement
+
+SMS_ClientAdvertisementStatus	TABLE				/*http://msdn.microsoft.com/en-us/library/cc143889*/
+AdvertisementID					STRING
+LastAcceptanceMessageID			INT
+LastAcceptanceMessageIDName		STRING
+LastAcceptanceMessageIDSeverity	INT
+LastAcceptanceState				INT
+LastAcceptanceStateName			STRING
+LastAcceptanceStatusTime		DATETIME
+LastExecutionContext			STRING
+LastExecutionResult				STRING
+LastState						INT
+LastStateName					STRING
+LastStatusMessageID				INT
+LastStatusMessageIDName			STRING
+LastStatusMessageIDSeverity		INT
+LastStatusTime					DATETIME
+ResourceID						INT
+
+SMS_ClientAdvertisementSummary	TABLE				/*http://msdn.microsoft.com/en-us/library/cc146096*/
+Activity1day					INT
+Activity30days					INT
+Activity7days					INT
+AdvertFlags						INT
+AdvertisementID					STRING
+AdvertisementName				STRING
+Failed							INT
+NotStarted						INT
+PackageFlags					INT
+PackageID						STRING
+Retrying						INT
+Running							INT
+Succeeded						INT
+Targeted						INT
+Waiting							INT
+
+
+SMS_ScheduleToken				TABLE				/*http://msdn.microsoft.com/en-us/library/cc145924.aspx*/
+DayDuration						INT
+HourDuration					INT
+IsGMT							BOOLEAN
+MinuteDuration					INT
+StartTime						DATETIME
+
+SMS_ST_RecurInterval			TABLE				/*http://msdn.microsoft.com/en-us/library/cc146489.aspx*/
+DayDuration						INT
+DaySpan							INT
+HourDuration					INT
+HourSpan						INT
+IsGMT							BOOLEAN
+MinuteDuration					INT
+MinuteSpan						INT
+StartTime						DATETIME
+
+
+SMS_Collection					TABLE				/*http://msdn.microsoft.com/en-us/library/cc145320*/
+CollectionID					STRING
+CollectionRules[]				SMS_CollectionRule
+CollectionVariablesCount		INT
+Comment							STRING
+CurrentStatus					INT
+LastChangeTime					DATETIME
+LastMemberChangeTime			DATETIME
+LastRefreshTime					DATETIME
+MemberClassName					STRING
+Name							STRING
+OwnedByThisSite					BOOLEAN
+RefreshSchedule[]				SMS_ScheduleToken
+RefreshType						INT
+ReplicateToSubSites				BOOLEAN
+ServiceWindowsCount				INT
+
+SMS_CollectionMember			TABLE				/*http://msdn.microsoft.com/en-us/library/cc145048*/
+Domain							STRING
+IsAssigned						BOOLEAN
+IsClient						BOOLEAN
+IsDirect						BOOLEAN
+Name							STRING
+ResourceID						INT
+ResourceType					INT
+SiteCode						STRING
+SMSID							STRING
+
+SMS_CollectionMember_a			TABLE				/*http://msdn.microsoft.com/en-us/library/cc145603*/
+ClientType						INT
+collection						ref:SMS_Collection
+CollectionID					STRING
+Domain							STRING
+IsActive						BOOLEAN
+IsAlwaysInternet				BOOLEAN
+IsApproved						BOOLEAN
+IsAssigned						BOOLEAN
+IsBlocked						BOOLEAN
+IsClient						BOOLEAN
+IsDecommissioned				BOOLEAN
+IsDirect						BOOLEAN
+IsInternetEnabled				BOOLEAN
+IsObsolete						BOOLEAN
+Name							STRING
+resource						ref:SMS_Resource
+ResourceID						INT
+ResourceType					INT
+SiteCode						STRING
+SMSID							STRING
+
+SMS_CollectionRule				TABLE				/*http://msdn.microsoft.com/en-us/library/cc143969*/
+RuleName						STRING
+
+SMS_CollectionRuleDirect		TABLE				/*http://msdn.microsoft.com/en-us/library/cc145537*/
+ResourceClassName				STRING
+ResourceID						INT
+RuleName						STRING
+
+SMS_CollectionRuleQuery			TABLE				/*http://msdn.microsoft.com/en-us/library/cc146316*/
+LimitToCollectionID				STRING
+QueryExpression					STRING
+QueryID							INT
+RuleName						STRING
+
+SMS_CollectionSettings			TABLE				/*http://msdn.microsoft.com/en-us/library/cc146203*/
+AMTAutoProvisionEnabled			BOOLEAN
+CollectionID					STRING
+CollectionVariablePrecedence	INT
+CollectionVariables[]			SMS_CollectionVariable
+LastModificationTime			DATETIME
+LocaleID						INT
+PollingInterval					INT
+PollingIntervalEnabled			BOOLEAN
+RebootCountdown					INT
+RebootCountdownEnabled			BOOLEAN
+RebootCountdownFinalWindow		INT
+ServiceWindows[]				SMS_ServiceWindow
+SourceSite						STRING
+
+SMS_CollectionToPkgAdvert_a		TABLE				/*http://msdn.microsoft.com/en-us/library/cc143082*/
+advert							ref:SMS_Advertisement
+collection						ref:SMS_Collection
+
+
+SMS_CollectToSubCollect			TABLE				/*http://msdn.microsoft.com/en-us/library/cc144508*/
+parentCollectionID				STRING
+subCollectionID					STRING
+
+SMS_CollectToSubCollect_a		TABLE				/*http://msdn.microsoft.com/en-us/library/cc144671*/
+parentCollection				ref:SMS_Collection
+subCollection					ref:SMS_Collection
+
+SMS_CM_RES_COLL_CollectionID	TABLE				/*http://msdn.microsoft.com/en-us/library/cc145442*/
+ClientType						INT
+Domain							STRING
+IsActive						BOOLEAN
+IsAlwaysInternet				BOOLEAN
+IsApproved						INT
+IsAssigned						BOOLEAN
+IsBlocked						BOOLEAN
+IsClient						BOOLEAN
+IsDecommissioned				BOOLEAN
+IsDirect						BOOLEAN
+IsInternetEnabled				BOOLEAN
+IsObsolete						BOOLEAN
+Name							STRING
+ResourceID						INT
+ResourceType					INT
+SiteCode						STRING
+SMSID							STRING
+
+SMS_DistributionPoint			TABLE				/*http://msdn.microsoft.com/en-us/library/cc144580*/
+BitsEnabled						BOOLEAN
+IsFileStreaming					BOOLEAN
+IsPeerDP						BOOLEAN
+IsProtected						BOOLEAN
+ISVData[]						INT
+ISVDataSize						INT
+LastRefreshTime					DATETIME
+PackageID						STRING
+RefreshNow						BOOLEAN
+ResourceType					STRING
+ServerNALPath					STRING
+SiteCode						STRING
+SiteName						STRING
+SourceSite						STRING
+Status							INT
+
+SMS_DistributionPointGroup		TABLE				/*http://msdn.microsoft.com/en-us/library/cc146481*/
+arrNALPath[]					STRING
+sGroupName						STRING
+
+SMS_DistributionPointInfo		TABLE				/*http://msdn.microsoft.com/en-us/library/cc144298*/
+BitsEnabled						BOOLEAN
+Drive							STRING
+IsFileStreaming					BOOLEAN
+IsPeerDP						BOOLEAN
+IsProtected						BOOLEAN
+NALPath							STRING
+ResourceType					STRING
+ServerName						STRING
+ShareName						STRING
+SiteCode						STRING
+SiteName						STRING
+
+SMS_FullCollectionMembership	TABLE				/*http://msdn.microsoft.com/en-us/library/cc146287*/
+AMTFullVersion					STRING
+AMTStatus						INT
+ClientType						INT
+CollectionID					STRING
+Domain							STRING
+IsActive						BOOLEAN
+IsAlwaysInternet				BOOLEAN
+IsApproved						BOOLEAN
+IsAssigned						BOOLEAN
+IsBlocked						BOOLEAN
+IsClient						BOOLEAN
+IsDecommissioned				BOOLEAN
+IsDirect						BOOLEAN
+IsInternetEnabled				BOOLEAN
+IsObsolete						BOOLEAN
+Name							STRING
+ResourceID						INT
+ResourceType					INT
+SiteCode						STRING
+SMSID							STRING
+SuppressAutoProvision			BOOLEAN
+
+SMS_OS_Details					TABLE				/*http://msdn.microsoft.com/en-us/library/cc146485*/
+MaxVersion						STRING
+MinVersion						STRING
+Name							STRING
+Platform						STRING
+
+SMS_Package						TABLE				/*http://msdn.microsoft.com/en-us/library/cc144959*/
+ActionInProgress				INT
+Description						STRING
+ExtendedData[]					INT
+ExtendedDataSize				INT
+ForcedDisconnectDelay			INT
+ForcedDisconnectEnabled			BOOLEAN
+ForcedDisconnectNumRetries		INT
+Icon[]							INT
+IconSize						INT
+IgnoreAddressSchedule			BOOLEAN
+ISVData[]						INT
+ISVDataSize						INT
+Language						STRING
+LastRefreshTime					DATETIME
+Manufacturer					STRING
+MIFFilename						STRING
+MIFName							STRING
+MIFPublisher					STRING
+MIFVersion						STRING
+Name							STRING
+PackageID						STRING
+PackageType						INT
+PkgFlags						INT
+PkgSourceFlag					INT
+PkgSourcePath					STRING
+PreferredAddressType			STRING
+Priority						INT
+RefreshPkgSourceFlag			BOOLEAN
+RefreshSchedule[]				Object
+ShareName						STRING
+ShareType						INT
+SourceDate						DATETIME
+SourceSite						STRING
+SourceVersion					INT
+StoredPkgPath					STRING
+StoredPkgVersion				INT
+Version							STRING
+
+SMS_PackageAccessByUsers		TABLE				/*http://msdn.microsoft.com/en-us/library/cc144009*/
+Access							INT
+PackageID						STRING
+UserName						STRING
+
+SMS_PackageBaseclass			TABLE				/*http://msdn.microsoft.com/en-us/library/cc146062*/
+ActionInProgress				INT
+AlternateContentProviders		STRING
+Description						STRING
+ExtendedData[]					INT
+ExtendedDataSize				INT
+ForcedDisconnectDelay			INT
+ForcedDisconnectEnabled			BOOLEAN
+ForcedDisconnectNumRetries		INT
+Icon[]							INT
+IconSize						INT
+IgnoreAddressSchedule			BOOLEAN
+ISVData[]						INT
+ISVDataSize						INT
+Language						STRING
+LastRefreshTime					DATETIME
+Manufacturer					STRING
+MIFFilename						STRING
+MIFName							STRING
+MIFPublisher					STRING
+MIFVersion						STRING
+Name							STRING
+PackageID						STRING
+PackageType						INT
+PkgFlags						INT
+PkgSourceFlag					INT
+PkgSourcePath					STRING
+PreferredAddressType			STRING
+Priority						INT
+RefreshPkgSourceFlag			BOOLEAN
+RefreshSchedule[]				SMS_ScheduleToken
+ShareName						STRING
+ShareType						INT
+SourceDate						DATETIME
+SourceSite						STRING
+SourceVersion					INT
+StoredPkgPath					STRING
+StoredPkgVersion				INT
+Version							STRING
+
+SMS_PackageStatus				TABLE				/*http://msdn.microsoft.com/en-us/library/cc144674*/
+Location						STRING
+PackageID						STRING
+Personality						INT
+PkgServer						STRING
+ShareName						STRING
+SiteCode						STRING
+Status							INT
+Type							INT
+UpdateTime						DATETIME
+
+SMS_PackageStatusDetailSummarizer	TABLE				/*http://msdn.microsoft.com/en-us/library/cc144766*/
+Failed								INT
+Installed							INT
+Name								STRING
+PackageID							STRING
+Retrying							INT
+SiteCode							STRING
+SiteName							STRING
+SourceVersion						INT
+SummaryDate							DATETIME
+Targeted							INT
+
+SMS_PackageStatusDistPointsSummarizer	TABLE				/*http://msdn.microsoft.com/en-us/library/cc143014*/
+LastCopied								DATETIME
+PackageID								STRING
+ServerNALPath							STRING
+SiteCode								STRING
+SourceNALPath							STRING
+SourceVersion							INT
+State									INT
+SummaryDate								DATETIME
+
+SMS_PackageStatusRootSummarizer	TABLE				/*http://msdn.microsoft.com/en-us/library/cc143198*/
+Failed							INT
+Installed						INT
+Name							STRING
+PackageID						STRING
+Retrying						INT
+SourceCompressedSize			INT
+SourceDate						DATETIME
+SourceSite						STRING
+SourceSize						INT
+SourceVersion					INT
+Targeted						INT
+
+SMS_PackageToAdvert_a			TABLE				/*http://msdn.microsoft.com/en-us/library/cc143936*/
+advert							ref:SMS_Advertisement
+package							ref:SMS_Package
+
+SMS_PackageToContent			TABLE				/*http://msdn.microsoft.com/en-us/library/cc144664*/
+ContentID						INT
+ContentSubFolder				STRING
+ContentUniqueID					STRING
+ContentVersionInPkg				INT
+MinPackageVersion				INT
+PackageID						STRING
+
+SMS_PackageToSourceSite_a		TABLE				/*http://msdn.microsoft.com/en-us/library/cc146726*/
+ownedPackage					ref:SMS_Package
+pkgSourcesite					ref:SMS_Site
+
+SMS_PDF_Package					TABLE				/*http://msdn.microsoft.com/en-us/library/cc145129*/
+Icon[]							INT
+IconSize						INT
+Language						STRING
+Name							STRING
+PDFFileName						STRING
+PDFID							INT
+Publisher						STRING
+RequiredIconNames[]				STRING
+Status							INT
+Version							STRING
+
+SMS_PDF_Program					TABLE				/*http://msdn.microsoft.com/en-us/library/cc146589*/
+CommandLine						STRING
+Comment							STRING
+DependentProgram				STRING
+Description						STRING
+DiskSpaceReq					STRING
+DriveLetter						STRING
+Duration						INT
+Icon[]							INT
+IconSize						INT
+PDFID							INT
+ProgramFlags					INT
+ProgramName						STRING
+Publisher						STRING
+Requirements					STRING
+WorkingDirectory				STRING
+
+SMS_PDFPkgToPDFProgram_a		TABLE				/*http://msdn.microsoft.com/en-us/library/cc142958*/
+PDF_Package						ref:SMS_PDF_Package
+PDF_Program						ref:SMS_PDF_Program
+
+SMS_PkgToPkgAccess_a			TABLE				/*http://msdn.microsoft.com/en-us/library/cc146244*/
+package							ref:SMS_Package
+pkgAccess						ref:SMS_PackageAccessByUsers
+
+SMS_PkgToPkgProgram_a			TABLE				/*http://msdn.microsoft.com/en-us/library/cc143035*/
+package							ref:SMS_Package
+pkgProgram						ref:SMS_Program
+
+SMS_PkgToPkgServer_a			TABLE				/*http://msdn.microsoft.com/en-us/library/cc143865*/
+package							ref:SMS_Package
+pkgServer						ref:SMS_DistributionPoint
+
+SMS_Program						TABLE				/*http://msdn.microsoft.com/en-us/library/cc144361*/
+ActionInProgress				INT
+ApplicationHierarchy			STRING
+CommandLine						STRING
+Comment							STRING
+DependentProgram				STRING
+Description						STRING
+DeviceFlags						INT
+DiskSpaceReq					STRING
+DriveLetter						STRING
+Duration						INT
+ExtendedData[]					INT
+ExtendedDataSize				INT
+Icon[]							INT
+IconSize						INT
+ISVData[]						INT
+ISVDataSize						INT
+PackageID						STRING
+ProgramFlags					INT
+ProgramName						STRING
+RemovalKey						STRING
+Requirements					STRING
+SupportedOperatingSystems[]		SMS_OS_Details
+WorkingDirectory				STRING
+
+SMS_ServiceWindow				TABLE				/*http://msdn.microsoft.com/en-us/library/cc143300*/
+Description						STRING
+Duration						INT
+IsEnabled						BOOLEAN
+IsGMT							BOOLEAN
+Name							STRING
+RecurrenceType					INT
+ServiceWindowID					STRING
+ServiceWindowSchedules			STRING
+ServiceWindowType				INT
+StartTime						DATETIME
+
+SMS_SupportedPlatforms			TABLE				/*http://msdn.microsoft.com/en-us/library/cc144734*/
+Condition						STRING
+DisplayText						STRING
+OSMaxVersion					STRING
+OSMinVersion					STRING
+OSName							STRING
+OSPlatform						STRING
+ResourceDll						STRING
+StringId						INT
+
+SMS_G_System_CCM_RECENTLY_USED_APPS				TABLE				/**/
+AdditionalProductCodes							STRING
+CompanyName										STRING
+ExplorerFileName								STRING
+FileDescription									STRING
+FilePropertiesHash								STRING
+FileSize										STRING
+FileVersion										STRING
+FolderPath										STRING
+LastUsedTime									STRING
+LastUserName									STRING
+msiDisplayName									STRING
+msiPublisher									STRING
+msiVersion										STRING
+OriginalFileName								STRING
+ProductCode										STRING
+ProductLanguage									STRING
+ProductName										STRING
+ProductVersion									STRING
+SoftwarePropertiesHash							STRING
+
+
+SMS_G_System_CCM_SoftwareDistribution			TABLE				/*http://msdn.microsoft.com/en-us/library/cc145304*/
+ADV_ActiveTime									DATETIME
+ADV_ActiveTimeIsGMT								BOOLEAN
+ADV_ADF_Published								BOOLEAN
+ADV_ADF_RunNotification							BOOLEAN
+ADV_AdvertisementID								STRING
+ADV_ExpirationTime								DATETIME
+ADV_ExpirationTimeIsGMT							BOOLEAN
+ADV_FirstRunBehavior							STRING
+ADV_MandatoryAssignments						BOOLEAN
+ADV_ProgramWindowIsGMT							BOOLEAN
+ADV_ProgramWindowStartTime						DATETIME
+ADV_ProgramWindowStopTime						DATETIME
+ADV_RCF_InstallFromCDOptions					STRING
+ADV_RCF_InstallFromLocalDPOptions				STRING
+ADV_RCF_InstallFromRemoteDPOptions				STRING
+ADV_RCF_PostponeToAC							BOOLEAN
+ADV_RebootLogoffNotification					BOOLEAN
+ADV_RebootLogoffNotificationCountdownDuration	INT
+ADV_RebootLogoffNotificationFinalWindow			INT
+ADV_RepeatRunBehavior							STRING
+ADV_RetryCount									INT
+ADV_RetryInterval								INT
+ADV_RunNotificationCountdownDuration			INT
+PKG_ContentSize									INT
+PKG_Language									STRING
+PKG_Manufacturer								STRING
+PKG_MIFChecking									BOOLEAN
+PKG_MifFileName									STRING
+PKG_MIFName										STRING
+PKG_MIFPublisher								STRING
+PKG_MIFVersion									STRING
+PKG_Name										STRING
+PKG_PackageID									STRING
+PKG_PSF_ContainsSourceFiles						BOOLEAN
+PKG_SourceHash									STRING
+PKG_SourceVersion								STRING
+PKG_version										STRING
+PolicyID										STRING
+PolicyInstanceID								STRING
+PolicyPrecedence								INT
+PolicyRuleID									STRING
+PolicySource									STRING
+PolicyVersion									STRING
+PRG_Category[]									STRING
+PRG_CommandLine									STRING
+PRG_Comment										STRING
+PRG_CustomLogoffReturnCodes[]					INT
+PRG_CustomRebootReturnCodes[]					INT
+PRG_CustomSuccessReturnCodes[]					INT
+PRG_DependentPolicy								BOOLEAN
+PRG_DependentProgramPackageID					STRING
+PRG_DependentProgramProgramID					STRING
+PRG_DiskSpaceReq								STRING
+PRG_DriveLetter									STRING
+PRG_ForceDependencyRun							BOOLEAN
+PRG_HistoryLocation								STRING
+PRG_MaxDuration									INT
+PRG_PRF_AfterRunning							STRING
+PRG_PRF_Disabled								BOOLEAN
+PRG_PRF_InstallsApplication						BOOLEAN
+PRG_PRF_MappedDriveRequired						BOOLEAN
+PRG_PRF_PersistMappedDrive						BOOLEAN
+PRG_PRF_RunNotification							BOOLEAN
+PRG_PRF_RunWithAdminRights						BOOLEAN
+PRG_PRF_ShowWindow								STRING
+PRG_PRF_UserInputRequired						BOOLEAN
+PRG_PRF_UserLogonRequirement					STRING
+PRG_ProgramID									STRING
+PRG_ProgramName									STRING
+PRG_Requirements								STRING
+PRG_ReturnCodesSource							STRING
+PRG_WorkingDirectory							STRING
+
+SMS_G_System_CCM_SoftwareDistributionClientConfig			TABLE				/*http://msdn.microsoft.com/en-us/library/cc143632*/
+ADV_RebootLogoffNotification					BOOLEAN
+ADV_RebootLogoffNotificationCountdownDuration	INT
+ADV_RebootLogoffNotificationFinalWindow			INT
+ADV_RunNotificationCountdownDuration			INT
+ADV_WhatsNewDuration							INT
+CacheContentTimeout								INT
+CacheSpaceFailureRetryCount						INT
+CacheSpaceFailureRetryInterval					INT
+CacheTombstoneContentMinDuration				INT
+ComponentName									STRING
+ContentLocationTimeoutInterval					INT
+ContentLocationTimeoutRetryCount				INT
+DefaultMaxDuration								INT
+DisplayNewProgramNotification					BOOLEAN
+Enabled											BOOLEAN
+ExecutionFailureRetryCount						INT
+ExecutionFailureRetryErrorCodes[]				INT
+ExecutionFailureRetryInterval					INT
+LockSettings									BOOLEAN
+LogoffReturnCodes[]								INT
+NetworkAccessPassword							STRING
+NetworkAccessUsername							STRING
+NetworkFailureRetryCount						INT
+NetworkFailureRetryInterval						INT
+NewProgramNotificationUI						STRING
+PolicyID										STRING
+PolicyInstanceID								STRING
+PolicyPrecedence								INT
+PolicyRuleID									STRING
+PolicySource									STRING
+PolicyVersion									STRING
+PRG_PRF_RunNotification							BOOLEAN
+RebootReturnCodes[]								INT
+Reserved										STRING
+Reserved1										STRING
+Reserved2										STRING
+Reserved3										STRING
+SiteSettings[key]								INT
+SuccessReturnCodes[]							INT
+UIContentLocationTimeoutInterval				INT
+UserPreemptionCountdown							INT
+UserPreemptionTimeout							INT
+
+SMS_G_System					TABLE				/*http://msdn.microsoft.com/en-us/library/ms815864*/
+ResourceID						INT
+
+SMS_G_System_CollectedFile		TABLE				/*http://msdn.microsoft.com/en-us/library/ms815853.aspx*/
+CollectionDate					DATETIME
+FileData[]						INT
+FileName						STRING
+FilePath						STRING
+FileSize						INT
+LocalFilePath					STRING
+ModifiedDate					DATETIME
+ResourceID						INT
+RevisionID						INT
+
+SMS_G_System_Current			TABLE				/*http://msdn.microsoft.com/en-us/library/ms815867*/
+GroupID							INT
+ResourceID						INT
+RevisionID						INT
+TimeStamp						DATETIME
+
+SMS_G_System_ExtHistory			TABLE				/*http://msdn.microsoft.com/en-us/library/ms815885*/
+GroupID							INT
+ResourceID						INT
+RevisionID						INT
+TimeStamp						DATETIME
+
+SMS_G_System_History			TABLE				/*http://msdn.microsoft.com/en-us/library/ms815856*/
+GroupID							INT
+ResourceID						INT
+RevisionID						INT
+TimeStamp						DATETIME
+
+SMS_G_System_LastSoftwareScan	TABLE				/*http://msdn.microsoft.com/en-us/library/cc143742*/
+ResourceID						INT
+LastScanDate					DATETIME
+LastScanOpcode					INT
+LastCollectedFileScanDate		DATETIME
+
+SMS_G_System_SoftwareFile		TABLE				/*http://msdn.microsoft.com/en-us/library/cc144084*/
+CreationDate					DATETIME
+FileCount						INT
+FileDescription					STRING
+FileID							INT
+FileName						STRING
+FilePath						INT
+FileSize						INT
+FileVersion						STRING
+ModifiedDate					DATETIME
+FileModifiedDate				DATETIME
+ProductId						INT
+ResourceID						INT
+
+SMS_G_System_SoftwareProduct	TABLE				/*http://msdn.microsoft.com/en-us/library/ms815878.aspx*/
+CompanyName						STRING
+ProductId						INT
+ProductLanguage					INT
+ProductName						STRING
+ProductVersion					STRING
+ResourceID						INT
+
+SMS_G_System_UnknownFile		TABLE				/*http://msdn.microsoft.com/en-us/library/cc143634*/
+CreationDate					DATETIME
+FileCount						INT
+FileID							INT
+FileDescription					STRING
+FileName						STRING
+FilePath						STRING
+FileSize						INT
+FileVersion						STRING
+ModifiedDate					DATETIME
+ProductId						INT
+ResourceID						INT
+
+SMS_Group						TABLE				/*http://msdn.microsoft.com/en-us/library/ms815890*/
+ResourceID						INT
+
+SMS_PendingRegistrationRecord	TABLE				/*http://msdn.microsoft.com/en-us/library/dd339684*/
+AgentName						STRING
+Certificate						STRING
+ClientVersion					STRING
+ConflictSMSID					STRING
+FQDN							STRING
+HardwareID						STRING
+IsAlwaysInternet				BOOLEAN
+IsIntegratedAuth				BOOLEAN
+IsInternetEnabled				BOOLEAN
+IssuedTo						STRING
+KeyType							INT
+NetBiosName						STRING
+PublicKey						STRING
+SiteCode						STRING
+SMSID							STRING
+Thumbprint						STRING
+ValidFrom						DATETIME
+ValidUntil						DATETIME
+
+SMS_PropertyDisplayNode			TABLE				/*http://msdn.microsoft.com/en-us/library/ms815908*/
+ClassDisplayName				STRING
+ClassName						STRING
+Flags							INT
+NodeKey							INT
+NodeName						STRING
+PaneOrder						INT
+ParentNodeKey					INT
+ResourceDisplayName				STRING
+ResultProperties[]				STRING
+ResultPropertyIDName			STRING
+ScopePropertyIDName				STRING
+ScopePropertyNames[]			STRING
+
+SMS_Query						TABLE				/*http://msdn.microsoft.com/en-us/library/ms815907*/
+QueryID							STRING
+Name							STRING
+Comment							STRING
+Expression						STRING
+TargetClassName					STRING
+LimitToCollectionID				STRING
+
+SMS_ResIDValueLookup			TABLE				/*http://msdn.microsoft.com/en-us/library/ms815903*/
+LookupName						STRING
+IntLookupValue					INT
+StringLookupValue				STRING
+ResDLL							STRING
+ResID							INT
+
+SMS_Resource					TABLE				/*http://msdn.microsoft.com/en-us/library/ms815857*/ /*http://msdn.microsoft.com/en-us/library/cc143626*/
+ResourceID						INT
+
+RES								TABLE				/*http://msdn.microsoft.com/en-us/library/ms815857*/ /*http://msdn.microsoft.com/en-us/library/cc143626*/
+ResourceID						INT
+
+SMS_R_IPNetwork					TABLE				/*http://msdn.microsoft.com/en-us/library/cc144218*/
+AgentName[]						STRING
+AgentSite[]						STRING
+AgentTime[]						DATETIME
+Name							STRING
+ResourceID						INT
+ResourceType					INT
+SMSAssignedSites[]				STRING
+SubnetAddress					STRING
+SubnetMask						STRING
+
+SMS_R_System					TABLE				/*http://msdn.microsoft.com/en-us/library/cc145392.aspx*/
+Active							INT
+ADSiteName						STRING
+AgentName[]						STRING
+AgentSite[]						STRING
+AgentTime[]						DATETIME
+AMTFullVersion					STRING
+AMTStatus						INT
+Client							INT
+ClientType						INT
+ClientVersion					STRING
+CPUType							STRING
+CreationDate					DATETIME
+HardwareID						STRING
+IPAddresses[]					STRING
+IPSubnets[]						STRING
+IPXAddresses[]					STRING
+IPXNetworkNumbers[]				STRING
+IsClientAMT30Compatible			INT
+LastLogonUserDomain				STRING
+LastLogonUserName				STRING
+MACAddresses[]					STRING
+Name							STRING
+NetbiosName						STRING
+Obsolete						INT
+OperatingSystemNameandVersion	STRING
+PreviousSMSUUID					STRING
+ResourceDomainORWorkgroup		STRING
+ResourceID						INT
+ResourceNames[]					STRING
+ResourceType					INT
+SMSAssignedSites[]				STRING
+SMSInstalledSites[]				STRING
+SMSUniqueIdentifier				STRING
+SMSUUIDChangeDate				DATETIME
+SNMPCommunityName				STRING
+SystemContainerName[]			STRING
+SystemGroupName[]				STRING
+SystemOUName[]					STRING
+SystemRoles[]					STRING
+
+SMS_R_User						TABLE				/*http://msdn.microsoft.com/en-us/library/cc142968*/
+AgentName[]						STRING
+AgentSite[]						STRING
+AgentTime[]						DATETIME
+CreationDate[]					DATETIME
+FullUserName					STRING
+Name							STRING
+NetworkOperatingSystem			STRING
+ResourceID						INT
+ResourceType					INT
+UniqueUserName					STRING
+UserContainerName[]				STRING
+UserGroupName					STRING
+UserName						STRING
+UserOUName[]					STRING
+WindowsNTDomain					STRING
+department						STRING
+employeeID						STRING
+
+
+SMS_R_UserGroup					TABLE				/*http://msdn.microsoft.com/en-us/library/cc146332*/
+AgentName[]						STRING
+AgentSite[]						STRING
+AgentTime[]						DATETIME
+CreationDate					DATETIME
+Name							STRING
+NetworkOperatingSystem			STRING
+ResourceID						INT
+ResourceType					INT
+SID								STRING
+UniqueUsergroupName				STRING
+UsergroupName					STRING
+WindowsNTDomain					STRING
+
+SMS_ResIDValueLookup			TABLE				/*http://msdn.microsoft.com/en-us/library/cc146483*/
+LookupName						STRING
+IntLookupValue					INT
+StringLookupValue				STRING
+ResDLL							STRING
+ResID							INT
+
+SMS_SoftwareConversionRules		TABLE				/*http://msdn.microsoft.com/en-us/library/cc143318*/
+ConvertType						STRING
+NewName							STRING
+OriginalName					STRING
+RuleId							INT
+
+SMS_SoftwareProductCompliance	TABLE				/*http://msdn.microsoft.com/en-us/library/cc144159*/
+Category						STRING
+Comment							STRING
+FileName						STRING
+FileSize						INT
+ProdCompany						STRING
+ProdLang						STRING
+ProdName						STRING
+ProdPlatform					STRING
+ProdRev							STRING
+ProdVer							STRING
+RecordID						INT
+ResProdLangID					INT
+ResProdName						STRING
+ResProdVer						STRING
+Source							STRING
+Type							STRING
+URL								STRING
+
+SMS_G_System_SERVICE							TABLE	/*http://technet.microsoft.com/en-us/library/cc723575.aspx*/
+AcceptPause										INT
+AcceptStop										INT
+Caption											STRING
+Description										STRING
+DesktopInteract									INT
+DisplayName										STRING
+ErrorControl									STRING
+GroupID											INT
+InstallDate										DATETIME
+Name											STRING
+PathName										STRING
+ResourceId										INT
+RevisionID										INT
+ServiceType										STRING
+Started											INT
+StartMode										STRING
+StartName										STRING
+State											STRING
+Status											STRING
+SystemName										STRING
+TagID											INT
+TimeStamp										DATETIME
+
+
+SMS_G_System_ACCOUNT							TABLE				/*http://technet.microsoft.com/en-us/library/cc180445.aspx*/
+SMS_G_System_BASE_SERVICE						TABLE				/*http://msdn.microsoft.com/en-us/library/cc723664*/
+SMS_G_System_BOOT_CONFIGURATION					TABLE
+SMS_G_System_CDROM								TABLE
+SMS_G_System_COMPUTER_SYSTEM					TABLE
+SMS_G_System_DESKTOP							TABLE
+SMS_G_System_DEVICE_MEMORY_ADDRESS				TABLE
+SMS_G_System_DIRECTORY							TABLE
+SMS_G_System_DISPLAY_CONFIGURATION				TABLE
+SMS_G_System_DISPLAY_CONTROLLER_CONFIGURATION	TABLE
+SMS_G_System_DMA_CHANNEL						TABLE
+SMS_G_System_DRIVER_VXD							TABLE
+SMS_G_System_ENVIRONMENT						TABLE
+SMS_G_System_GROUP								TABLE
+SMS_G_System_IRQ								TABLE
+SMS_G_System_KEYBOARD_DEVICE					TABLE
+SMS_G_System_LOAD_ORDER_GROUP					TABLE
+SMS_G_System_LOGICAL_DISK						TABLE
+SMS_G_System_MODEM_DEVICE						TABLE
+SMS_G_System_MOTHERBOARD_DEVICE					TABLE
+SMS_G_System_NETWORK_ADAPTER					TABLE
+
+SMS_G_System_NETWORK_ADAPTER_CONFIGURATION		TABLE
+DefaultIPGateway								STRING
+DHCPEnabled										INT
+DHCPServer										STRING
+DNSDomain										STRING
+DNSHostName										STRING
+GroupID											INT
+Index											INT
+IPAddress										STRING
+IPEnabled										INT
+IPSubnet										STRING
+MACAddress										STRING
+ResourceID										INT
+RevisionID										INT
+ServiceName										STRING
+TimeStamp										DATETIME
+
+SMS_G_System_PC_BIOS							TABLE
+
+SMS_G_System_NETWORK_CLIENT						TABLE
+SMS_G_System_NETWORK_CONNECTION					TABLE
+SMS_G_System_NETWORK_LOGIN_PROFILE				TABLE
+SMS_G_System_NT_EVENTLOG_FILE					TABLE
+SMS_G_System_NT_LOG_EVENT						TABLE
+SMS_G_System_OS_RECOVERYCONFIGURATION			TABLE
+SMS_G_System_PAGE_FILE							TABLE
+SMS_G_System_PARALLEL_PORT						TABLE
+SMS_G_System_PARTITION							TABLE
+SMS_G_System_PC_ANALYSER						TABLE
+SMS_G_System_POINTING_DEVICE					TABLE
+SMS_G_System_PORT								TABLE
+SMS_G_System_POWER_SUPPLY						TABLE
+SMS_G_System_PRINTER_CONFIGURATION				TABLE
+SMS_G_System_PRINTER_DEVICE						TABLE
+SMS_G_System_PRINT_JOB							TABLE
+SMS_G_System_PROCESS							TABLE
+SMS_G_System_PROCESSOR							TABLE
+SMS_G_System_PROGRAM_GROUP						TABLE
+SMS_G_System_PROTOCOL							TABLE
+SMS_G_System_REGISTRY							TABLE
+SMS_G_System_SCSI_CONTROLLER					TABLE
+SMS_G_System_SERIAL_PORT						TABLE
+SMS_G_System_SERIAL_PORT_CONFIGURATION			TABLE
+SMS_G_System_SHARE								TABLE
+SMS_G_System_SOUND_DEVICE						TABLE
+SMS_G_System_SYSTEM								TABLE
+SMS_G_System_SYSTEM_ACCOUNT						TABLE
+SMS_G_System_SYSTEM_DRIVER						TABLE
+SMS_G_System_SYSTEM_MEMORY_RESOURCE				TABLE
+SMS_G_System_TAPE_DRIVE							TABLE
+SMS_G_System_TIME_ZONE							TABLE
+SMS_G_System_USER								TABLE
+SMS_G_System_VIDEO								TABLE
+SMS_G_System_WORKSTATION_STATUS					TABLE
+
+SMS_G_System_X86_PC_MEMORY			TABLE
+TotalPhysicalMemory					INT
+TotalVirtualMemory					INT
+
+SMS_G_System_DISK					TABLE		/*http://msdn.microsoft.com/en-us/library/windows/desktop/aa394132(v=vs.85).aspx*/
+Availability						INT
+BytesPerSector						INT
+Capabilities[]						INT
+CapabilityDescriptions[]			STRING
+Caption								STRING
+CompressionMethod					STRING
+ConfigManagerErrorCode				INT
+ConfigManagerUserConfig				BOOL
+CreationClassName					STRING
+DefaultBlockSize					INT
+Description							STRING
+DeviceID							STRING
+ErrorCleared						BOOL
+ErrorDescription					STRING
+ErrorMethodology					STRING
+FirmwareRevision					STRING
+Index								INT
+InstallDate							DATETIME
+InterfaceType						STRING
+LastErrorCode						INT
+Manufacturer						STRING
+MaxBlockSize						INT
+MaxMediaSize						INT
+MediaLoaded							BOOL
+MediaType							STRING
+MinBlockSize						INT
+Model								STRING
+Name								STRING
+NeedsCleaning						BOOL
+NumberOfMediaSupported				INT
+Partitions							INT
+PNPDeviceID							INT
+PowerManagementCapabilities[]		INT
+PowerManagementSupported			BOOL
+SCSIBus								INT
+SCSILogicalUnit						INT
+SCSIPort							INT
+SCSITargetId						INT
+SectorsPerTrack						INT
+SerialNumber						STRING
+Signature							INT
+Size								INT
+Status								STRING
+StatusInfo							INT
+SystemCreationClassName				STRING
+SystemName							STRING
+TotalCylinders						INT
+TotalHeads							INT
+TotalSectors						INT
+TotalTracks							INT
+TracksPerCylinder					INT
+
+
+SMS_G_System_PROCESSOR				TABLE				/*http://msdn.microsoft.com/en-us/library/cc723664*/
+AddressWidth						INT
+CurrentClockSpeed					INT
+Description							STRING
+DeviceID							STRING
+Family								STRING
+GroupID								STRING
+Manufacturer						STRING
+MaxClockSpeed						INT
+Name								STRING
+PowerManagementEnabled				BOOLEAN
+ResourceID							STRING
+RevisionID							STRING
+Role								STRING
+StatusInfo							STRING
+SystemName							STRING
+TimeStamp							DATETIME
+Version								STRING
+
+SMS_G_System_OPERATING_SYSTEM		TABLE				/*http://msdn.microsoft.com/en-us/library/cc723664*/
+BootDevice							STRING
+BuildNumber							STRING
+Caption								STRING
+CoutryCode							STRING
+CSDVersion							STRING
+Description							STRING
+FreePhysicalMemory					INT
+FreeVirtualMemory					INT
+InstallDate							DATETIME
+LastBootUpTime						DATETIME
+Locale								STRING
+Manufacturer						STRING
+Name								STRING
+ResourceID							STRING
+RevisionID							STRING
+SystemDirectory						STRING
+TimeStamp							DATETIME
+TotalSwapSpaceSize					INT
+TotalVirtualMemorySize				INT
+Version								STRING
+WindowsDirectory					STRING
+
+SMS_G_System_BIOS___do_not_use		TABLE				/*http://msdn.microsoft.com/en-us/library/cc723664*/
+Description							STRING
+GroupID								STRING
+Manufacturer						STRING
+Name								STRING
+ReleaseDate							DATETIME
+ResourceID							STRING
+RevisionID							STRING
+TimeStamp							DATETIME
+Version								STRING
+
+SMS_G_System_PC_BIOS				TABLE
+Description							STRING
+GroupID								STRING
+Manufacturer						STRING
+Name								STRING
+ReleaseDate							DATETIME
+ResourceID							STRING
+RevisionID							STRING
+TimeStamp							DATETIME
+Version								STRING
+
+
+SMS_G_System_COMPUTER_SYSTEM		TABLE				/*http://msdn.microsoft.com/en-us/library/cc723664*/
+CurrentTimeZone						INT
+Description							STRING
+Domain								STRING
+GroupID								STRING
+Model								STRING
+Manufacturer						STRING
+Name								STRING
+ResourceID							STRING
+RevisionID							STRING
+Roles								STRING
+Status								STRING
+TimeStamp							DATETIME
+UserName							STRING
+
+SMS_G_System_LOGICAL_DISK			TABLE				/*http://msdn.microsoft.com/en-us/library/cc723664*/
+GroupID								STRING
+ResourceID							STRING
+Availability						STRING
+BlockSize							INT
+Caption								STRING
+Description							STRING
+DeviceID							STRING
+DriveType							INT
+FileSystem							STRING
+FreeSpace							INT
+HotSwappable						BOOLEAN
+Name								STRING
+PowerManagementEnabled				BOOLEAN
+RevisionID							STRING
+SystemName							STRING
+TimeStamp							DATETIME
+VolumeName							STRING
+
+SMS_Site							TABLE				/*http://msdn.microsoft.com/en-us/library/cc723664*/
+SiteCode							STRING
+BuildNumber							INT
+InstallDir							STRING
+ReportingSiteCode					STRING
+RequestedStatus						INT
+ServerName							STRING
+SiteName							STRING
+Status								INT
+Type								INT
+Version								STRING
+
+SMS_G_System_SYSTEM_CONSOLE_USAGE	TABLE
+TopConsoleUser						STRING
+TotalConsoleTime					INT
+TotalConsoleUsers					INT
+TotalSecurityLogTime				INT
+ResourceID							STRING
+
+SMS_G_System_SYSTEM_CONSOLE_USER	TABLE
+LastConsoleUse						DATETIME
+NumberOfConsoleLogons				INT
+SystemConsoleUser					STRING
+TotalUserConsoleMinutes				INT
+ResourceID							STRING
+
+SMS_G_System_SYSTEM_ENCLOSURE		TABLE
+ChassisTypes						INT
+SerialNumber						STRING
+
+SMS_G_System_ADD_REMOVE_PROGRAMS	TABLE
+DisplayName							STRING
+Publisher							STRING
+Version								STRING
+ResourceID							STRING
+
+SMS_G_System_ADD_REMOVE_PROGRAMS_64	TABLE
+DisplayName							STRING
+Publisher							STRING
+Version								STRING
+ResourceID							STRING
+
+SMS_R_User							TABLE
+
+
+SMS_G_System_PAREXEL_REG_SASCOMPONENTS_4_0	TABLE
+KeyName										STRING
+aacomp										STRING
+activexgraph								STRING
+af											STRING
+base										STRING
+basestat									STRING
+cleanwork									STRING
+delete										STRING
+eeditor										STRING
+filetypeutil								STRING
+fsp											STRING
+graph										STRING
+iculib										STRING
+iml											STRING
+insight										STRING
+instqualtool								STRING
+itclient									STRING
+odbc										STRING
+odstemplate									STRING
+oledb										STRING
+oracle										STRING
+pcfile										STRING
+qc											STRING
+renewutility								STRING
+sas											STRING
+sasoledb									STRING
+securessl									STRING
+share										STRING
+spdsclient									STRING
+stat										STRING
+statcomp									STRING
+tablesrvtk									STRING
+tkaa										STRING
+tkstat										STRING
+ttfontsmva									STRING
+ResourceID									STRING
+
+SMS_G_System_SOFTWAREUSAGEDATA		TABLE
+CompanyName							STRING
+EndNotCaptured						BOOLEAN
+EndTimeGMT							DATETIME
+EndTimeLocal						DATETIME
+FileDescription						STRING
+FileID								INT
+FileName							STRING
+FileSize							INT
+FileVersion							STRING
+InTSSession							BOOLEAN
+MeterDataID							STRING
+ProductLanguage						INT
+ProductName							STRING
+ProductVersion						STRING
+ResourceID							INT
+StartNotCaptured					BOOLEAN
+StartTimeGMT						DATETIME
+StartTimeLocal						DATETIME
+StillRunning						BOOLEAN
+UserName							STRING
+
+SMS_MeteredFiles					TABLE
+ApplyToChildSites					BOOLEAN
+Comment								STRING
+Enabled								BOOLEAN
+FileName							STRING
+FileVersion							STRING
+LanguageID							INT
+MeteredFileID						INT
+MeteredFileName						STRING
+MeteredFileVersion					STRING
+MeteredProductID					INT
+MeteredProductLanguage				INT
+OriginalFileName					STRING
+ProductName							STRING
+RuleID								INT
+SecurityKey							STRING
+SiteCode							STRING
+SourceSite							STRING
+
+SMS_MeteredProductRule				TABLE
+ApplyToChildSites					BOOLEAN
+Comment								STRING
+Enabled								BOOLEAN
+FileName							STRING
+FileVersion							STRING
+LanguageID							INT
+LastUpdateTime						DATETIME
+OriginalFileName					STRING
+ProductName							STRING
+RuleID								INT
+SecurityKey							STRING
+SiteCode							STRING
+SourceSite							STRING
+
+
+SMS_ProductFileInfo					TABLE
+CompanyName							STRING
+FileDescription						STRING
+FileID								INT
+FileName							STRING
+FileSize							INT
+FileVersion							STRING
+ProductLanguage						INT
+ProductName							STRING
+ProductVersion						STRING
+
+
+SMS_G_System_BATTERY				TABLE /*http://msdn.microsoft.com/en-us/library/aa394074(v=vs.85).aspx*/
+Availability 						INT
+BatteryRechargeTime 				INT
+BatteryStatus 						INT
+Caption 							STRING
+Chemistry 							INT
+ConfigManagerErrorCode 				INT
+ConfigManagerUserConfig 			BOOLEAN
+CreationClassName 					STRING
+Description 						STRING
+DesignCapacity 						INT
+DesignVoltage 						INT
+DeviceID 							STRING
+ErrorCleared 						BOOLEAN
+ErrorDescription 					STRING
+EstimatedChargeRemaining 			INT
+EstimatedRunTime 					INT
+ExpectedBatteryLife 				INT
+ExpectedLife 						INT
+FullChargeCapacity 					INT
+InstallDate 						DATETIME
+LastErrorCode 						INT
+MaxRechargeTime 					INT
+Name 								STRING
+PNPDeviceID 						STRING
+PowerManagementCapabilities[] 		INT
+PowerManagementSupported 			BOOLEAN
+SmartBatteryVersion 				STRING
+Status 								STRING
+StatusInfo 							INT
+SystemCreationClassName 			STRING
+SystemName 							STRING
+TimeOnBattery 						INT
+TimeToFullCharge 					INT
+

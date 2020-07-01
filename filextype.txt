@@ -1,0 +1,66 @@
+Archive = cab, ?Q?, 7z, ace, ALZ, AT3, .bke, ARC, ARJ, ASS, BA, big, BIK, BKF, bzip2, bld, c4, cals, clipflair, sea, deb, DDZ, DPE, ECAB, ezip, gho, ghs, gzip, IPG, Lawrence, LBR, LQR, lzh, lz, lzo, lzma, LZX, mbw, mpq, nth, PAK, par2, paf, pyk, pk3, pk4, rar, RAG, RPM, sen, sit, sitx, SKB, tar, tar.gz, tgz, tb, tib, uha, uue, VIV, VOL, VSA, WAX, tar.xz, Z, zoo, zip, MSU, MSI
+
+Disk Image = ISO, NRG, ADF, ADZ, DMS, DSK, D64, SDI, MDS, DMG, CDI, CUE, CIF, C2D, DAA, CCD, SUB, IMG, B6T
+
+Virtual Machine = VFD, VHD, VUD, VMC, VSV, VMDK, NVRAM, VMEM, VMSD, VMSN, VMSS,STD, VMTM, VMX, VMXF, VDI, HDD, PVS, COW, QCOW, QCOW2, QED
+
+Computer Aided Design = 3dmlw, 3dxml, 3MF, ACP, AMF, AEC, AR, ART, BIM, BREP, CCC, CCM, CCS, CAD, CATDrawing, CATPart, CATProduct, CATProcess, cgr, CO, DRW, DFT, DGN, DGK, DMT, DXF, DWB, DWF, DWG, EASM, EDRW, EMB, EPRT, ESW, EXCELLON, EXP, FMZ, GBR, GRB, GTC, IAM, ICD, IDW, IFC, IGES, IPN, IPT, JT, MCD, model, OCD, PAR, PIPE, PLN, PRT, PSM, PSMODEL, PWI, PYT, SKP, RLF, RVM, RVT, RFA, S12, SCAD, SCDOC, SLDASM, SLDDRW, SLDPRT, XSI, STEP, STL, TCT, TCW, UNV, VC6, VLM, VS, WRL, X_B, X_T, XE
+
+Electronic Design Automation = BRD, BSDL, CDL, CPF, DEF, DSPF, EDIF, FSDB, GDSII, HEX, LEF, LIB, MS12, OASIS, OpenAccess, SPEF, SPI, CIR, SREC, S19, STIL, SV, S*P, UPF, V, VCD, VHDL, WGL
+
+Database = 4DB, 4DD, 4DIndy, 4DIndx, 4DR, ACCDB, ACCDE, ADT, BOX, CHML, DAF, DB, DBF, ESS, EAP, FDB, FP, FP3, FP5, FP7, GDB, GTABLE, KEXI, KEXIC, KEXIS, LDB, MDA, MDB, ADP, MDE, MDF, MYD, MYI, NCF, NSF, NTF, NV2, ODB, ORA, PDI, PDX, SQL, REC, REL, RIN, SDB, SDF, UDL, waData, waIndx, waModel, waJournal, WDB, WMDB, DAT
+
+Document = 602, ABW, ACL, AFP, AMI, ANS, AWW, CCF, CWK, DBK, DOC, DOCM, DOCX, DOT, DOTX, EGT, EPUB, EZW, FDX, FTM, FTX, GDOC, HWP, HWPML, LWP, MBP, MCW, Mobi, NB, ODM, ODT, OTT, OMM, PAGES, PAP, PDAX, PDF, Radix-64, RTF, QUOX, RPT, SDW, STW, Sxw, TeX, INFO, Troff, UOF, UOML, VIA, WPD, WPS, WPT, WRD, WRF, WRI, XPS, DVI, PLD, PCL, ps, ps.gz, SNP, XSL-FO
+
+Markup = atom, xml, eml, jsonld, metalink, met, rss, markdown, md, se
+
+Text = INI, JSON, LTSV, YAML, cnf, conf, cfg, log, asc, txt
+
+Webpage = htm, HTML, xht, XHTML, mht, MHTML, maff, ASPX, BML, CFM, CGI, iHTML, JSP, las, lasso, lassoapp, RNA, RNX, SSI, CSS, XSLT, XSL, TPL
+
+Spreadsheet = 123, AB2, AB3, AWS, CLF, CELL, CSV, GSHEET, numbers, gnumeric, ODS, OTS, QPW, SDC, SLK, STC, SXC, TAB, VC, WK1, WK3, WK4, WKS, WQ1, XLK, XLS, XLSB, XLSM, XLSX, XLR, XLT, XLTM, XLW, TSV, dif
+
+Publishing = AVE, ZAVE, CHP, STY, CAP, VGR, DTP, GDRAW, ILDOC, INDD, MCF, PMD, PPP, PUB, QXD, FM, SLA, SCD
+
+Presentation = GSLIDES, KEY, KEYNOTE, ODP, OTP, PEZ, POT, PPS, PPT, PPTX, PRZ, SDD, SHF, SHOW, SHW, SLP, SSPSS, STI, SXI, THMX, WATCH
+
+Project management = MPP, MPD, MPT, MPX
+
+Personal Information = MSG, ORG, PST, SC2, ONE
+
+Graphical Information Organizer = 3DT, ATY, CAG, FES, MGMF, MM, MMP, TPC
+
+Graphics = ACT, PAL, ICC, ICM, ASE, BMP, BLP, CD5, CIT, CPT, CR2, CUT, DDS, DIB, DjVu, Exif, GIF, GPL, GRF, ICNS, ICO, IFF, ilbm, lbm, JNG, JPEG, JFIF, jpg, JP2, JPS, MAX, MIFF, MNG, MSP, NITF, OTA, PBM, PC1, PC2, PC3, PCX, PDN, PGM, PI1, PI2, PI3, PICT, PCT, PNG, PNM, PNS, PPM, PSB, PSD, PDD, PSP, PX, PXM, PXR, RLE, SCT, SGI, RGB, INT, BW, TGA, targa, icb, vda, vst, pix, TIFF, tif, VTF, XBM, XCF, XPM, 3DV, AWG, AI, CGM, CDR, CMX, E2D, EPS, FS, ODG, RenderMan, SVG,  VRML, X3D, SXD, V2D, VND, WMF, EMF, XAR, 3DMF, 3DM, 3DS, ABC, AC, AN8, AOI, B3D, BLEND, BLOCK, C4D, Cal3D, CFL, CORE3D, CTM, DAE, DFF, DPM, FACT, FBX, G, GLM, JAS, LWO, LWS, LXO, MA, MB, MD2, MD3, MDX, MESH, MM3D, MPO, NIF, OBJ, OFF, OGEX, PLY, PRC, POV, RWX, SIA, SMD, U3D, VIM, VRML97, VUE, VWX, WINGS, W3D, X, Z3D, ANI, CUR, Smes
+
+Font = ABF, AFM, BDF, BMF, FNT, FON, MGF, OTF, PCF, PFA, PFB, PFM, FOND, SFD, SNF, TDF, TFM, TTF, ttc, WOFF
+
+Finance = MYO, MYOB, TAX, YNAB, IFX, ofx, QFX, qif
+
+Scientific data = NBP, FITS, Silo, SPC, EAS3, CCP4, MRC, HITRAN, NetCDF, HDF, h4, h5, SDXF, CDF, CGNS, FMF, GRIB, BUFR, NASA-Ames, CML, mol, sd, dx, jdx, AB1, BAM, BCF, BED, CAF, EMBL, FASTA, FASTQ, GCPROJ, GenBank, GFF, GTF, NEXUS, NWK, PDB, PHD, SAM, SCF, SBML, SFF, Stockholm, Swiss-Prot, VCF, dcm, nii, gii, hdr, BRIK, HEAD, MGH, MGZ, sdm, mnc, ACQ, BCI2000, BKR, CFWB, DICOM, ecgML, EDF, EDF+, FEF, GDF, HL7aECG, MFER, OpenXDF, SCP-ECG, SIGIF, WFDB, XDF, HL7, xDT, CBF, EBF, CBFX, EBFX, GMS, IROCK, SEGY, APR, DEM, E00, GeoTIFF, GML, GPX, MXD, OV2, SHP, WorldTIFF, DTED, KML, MML, ODF, SXM, graph6, sparse6
+
+Security = GXK, ssh, ppk, cer, crt, der, p7b, p7c, p12, PEM, PFX, AXX, EEA, TC, BPW, kdb, kdbx
+
+Binary = bak, bk, BIN, RAW
+
+Executable = 8BF, a, a.out, APK, APP, BAC, BPL, Bundle, Class, COFF, o, COM, DCU, DOL, EAR, ELF, exe, IPA, JAR, XPI, Mach-O, NLM, DLL, s1es, so, VAP, WAR, XBE, XAP, XCOFF, XEX, VBX, OCX, TLB
+
+Code and Script = AHK, AS, AU3, BAT, CMD, Coffee, EGG, ERB, HTA, IBI, ICI, IJS, ipynb, ITCL, JS, JSFL, LUA, NUT, PM, PS1, PS1XML, PSC1, PSD1, PSM1, PYC, PYO, RDP, SCPT, SCPTD, SDL, SH, VBS, ebuild, ADB, ADA, ADS, ASM, S, BAS, BB, BMX, CLJ, CLS, COB, CBL, CPP, CC, CXX, C, CBP, CS, CSPROJ, D, DBA, DBPro123, E, EFS, EL, FOR, FTN, F, F77, F90, FRM, FRX, FTH, GED, GM6, GMD, GMK, GO, H, HPP, HXX, HS, I, INC, JAVA, L, LGT, LISP, M, M4, ML, N, P, PAS, PP, PHP, PHP3, PHP4, PHP5, PHPS, Phtml, PIV, PL, PRG, PRO, POL, PY, R, RED, REDS, RB, RESX, RC, RC2, RKT, RKTL, SCALA, SCI, SCE, SCM, SD7, SKC, SKD, SKF, SKG, SKI, SKK, SKM, SKO, SKQ, SKS, SKT, SKZ, SLN, SPIN, STK, SWG, TCL, VB, VBG, VBP, VIP, VBPROJ, VCPROJ, VDPROJ, XQ, Y
+
+Signal = 
+
+Sound = 8SVX, 16SVX, aif, aifc, aiff, AU, BWF, CDDA, WAV, FLAC, LA, PAC, M4A, APE, ofr, ofs, RKA, SHN, TAK, TTA, WV, WMA, BRSTM, DTS, DTSHD, DTSMA, AST, AMR, MP2, MP3, SPX, GSM, mp4, m4p, aac, MPC, VQF, RA, SWA, VOX, VOC, DWD, SMP, AUP, CUST, MID, MUS, SIB, SID, LY, GYM, VGM, PSF, MOD, PTB, S3M, XM, IT, MT2, 2sf, dsf, gsf, psf2, qsf, ssf, usf, RMJ, NIFF, mxl, TXM, YM, JAM, MP1, ASX, M3U, PLS, RAM, XPL, XSPF, ZPL, ALS, BAND, CEL, CPR, CWP, DRM, MMR, NPR, OMFI, SES, SFL, SNG, STF, SND, SYN, FLP, VCLS, VSQ, VSQX
+
+Video = AAF, 3GP, ASF, AVCHD, AVI, CAM, DSH, FLV, M1V , M2V, FLA, FLR, SOL, M4V, mkv, WRAP, mov, mpeg, mpg, mpe, MXF, ROQ, NSV, Ogg, RM, SVI, SMI, SWF, WMV, YUV, FCP, MSWMM, PPJ, PRPROJ, IMOVIEPROJ, VEG, VEG-BAK, SUF, WLMP
+
+
+Reference management = bib, enl, ris
+
+Differences and patches = diff
+
+Temporary files = temp, tmp, !UT, part, CRDOWNLOAD, OST, HDMP
+
+Shortcut = Alias, JNLP, LNK, URL, desktop
+
+Game save = GBX, DEH, DSG, LMP, WAD, MDL, MD5, PK2, fontdat, UAX, UMX, UNR, UPK, USX, UT2, UT3, UTX, UXX, GRP, ITM, SQM, PBO, LIP, BOL, DBPF, DIVA, HE0, HE2, HE4, HE, GCF, MAP, NBT, OEC, P3D, POD, REP, SC4Lot, SC4Model, SMZIP, VVVVVV
+
+Game ROM = JAG, J64, GCM, NDS, GB, GBC, GBA, SAV, SGM, N64, V64, Z64, U64, USA, JAP, EUR, PJ, NES, FDS, JST, FC?, GG, SMS, SMC, 078, SFC, FIG, SRM, ZST, FRZ, PCE, NPC, TZX, Z80, SNA,  TAP, T64

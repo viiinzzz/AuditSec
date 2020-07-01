@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PublishUrlHistory>\\fr-par-vfp001\wapps\WIN7\AuditSec\|\\scm-app-001.sdl.devpxl.int\c%24\Users\fontaiv\Desktop\AuditSec\|publish\</PublishUrlHistory>
+    <InstallUrlHistory />
+    <SupportUrlHistory />
+    <UpdateUrlHistory />
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>en-US</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
+    <ProjectView>ProjectFiles</ProjectView>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <StartArguments>/auditsec_ /pcmanagement_ /sccmreporting /sccmcheck_ /sccmdesign_ /mbam_ /regcol_ /wmicol_ /sizecol_ /groupedit_ /hotapps_ /unlocker_ /staffdetails_ /sdqspeak_</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <StartArguments>/auditsec_ /pcmanagement_ /sccmreporting /sccmcheck_ /sccmdesign_ /mbam_ /regcol_ /wmicol_ /sizecol_ /groupedit_ /hotapps_ /unlocker_ /staffdetails_ /sdqspeak_</StartArguments>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,651 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BB8FE729-DAAD-477B-AFE8-59998B73A9FB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AuditSec</RootNamespace>
+    <AssemblyName>AuditSec</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\fr-par-vfp001\wapps\WIN7\AuditSec\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>true</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>4.9.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>AuditSec.AuditSec</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>058F0B632C9E1FBDCE9784214EA3A7B435B9815E</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>AuditSec_5_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>search.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="adminui.wqlqueryengine">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft Configuration Manager Console\AdminUI\bin\adminui.wqlqueryengine.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.configurationmanagement.managementprovider">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft Configuration Manager Console\AdminUI\bin\microsoft.configurationmanagement.managementprovider.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Lync.Controls, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.Lync.Controls.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.Lync.Model, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Lync.Utilities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ScintillaNET, Version=2.2.3581.19319, Culture=neutral, PublicKeyToken=948d6c9751444115, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ScintillaNET.dll</HintPath>
+    </Reference>
+    <Reference Include="smsclictr.automation">
+      <HintPath>..\..\smsclictr\smsclictr.automation.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Speech" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>..\..\ScintillaNET_v2.5_Sample_App\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ComputerChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComputerChooser.Designer.cs">
+      <DependentUpon>ComputerChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PAREXEL_Settings.cs" />
+    <Compile Include="SDQueueSpeak_GUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SDQueueSpeak_GUI.Designer.cs">
+      <DependentUpon>SDQueueSpeak_GUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SDQueueSpeakControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SDQueueSpeakControl.Designer.cs">
+      <DependentUpon>SDQueueSpeakControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SizeCollector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SizeCollector.Designer.cs">
+      <DependentUpon>SizeCollector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StaffDetails_GUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StaffDetails_GUI.Designer.cs">
+      <DependentUpon>StaffDetails_GUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StaffDetailsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StaffDetailsControl.Designer.cs">
+      <DependentUpon>StaffDetailsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeploymentUtils.cs" />
+    <Compile Include="DeploymentUtilsWin32.cs" />
+    <Compile Include="SetupWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetupWizard.Designer.cs">
+      <DependentUpon>SetupWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Unlocker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Unlocker.Designer.cs">
+      <DependentUpon>Unlocker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMICollector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WMICollector.Designer.cs">
+      <DependentUpon>WMICollector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GroupEditor.Designer.cs">
+      <DependentUpon>GroupEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DoubleMetaphone.cs" />
+    <Compile Include="DoubleMetaphone_.cs" />
+    <Compile Include="HotApps.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HotApps.Designer.cs">
+      <DependentUpon>HotApps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Levenshtein.cs" />
+    <Compile Include="MBAM_GUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MBAM_GUI.Designer.cs">
+      <DependentUpon>MBAM_GUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Online.cs" />
+    <Compile Include="RegCollector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegCollector.Designer.cs">
+      <DependentUpon>RegCollector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SCCMCollectionDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SCCMCollectionDesigner.Designer.cs">
+      <DependentUpon>SCCMCollectionDesigner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShortDoubleMetaphone.cs" />
+    <Compile Include="Staff.cs" />
+    <Compile Include="AuditSecGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuditSecGUI.Designer.cs">
+      <DependentUpon>AuditSecGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuditSec.cs" />
+    <Compile Include="Diff.cs" />
+    <Compile Include="MSOfficeTools.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ComputerReenabler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComputerReenabler.Designer.cs">
+      <DependentUpon>ComputerReenabler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SCCMCalc.cs" />
+    <Compile Include="SCCMReporting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SCCMReporting.Designer.cs">
+      <DependentUpon>SCCMReporting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SCCMParser.cs" />
+    <Compile Include="UpdateNews.cs" />
+    <Compile Include="SCCMCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SCCMCheck.Designer.cs">
+      <DependentUpon>SCCMCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MachineInfo.cs" />
+    <Compile Include="MBAMControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MBAMControl.Designer.cs">
+      <DependentUpon>MBAMControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UsersInfo.cs" />
+    <Compile Include="LyncControl.xaml.cs">
+      <DependentUpon>LyncControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Savior.cs" />
+    <Compile Include="ComputerManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComputerManagement.Designer.cs">
+      <DependentUpon>ComputerManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="AuditSec_1_TemporaryKey.pfx" />
+    <None Include="AuditSec_2_TemporaryKey.pfx" />
+    <None Include="AuditSec_3_TemporaryKey.pfx" />
+    <None Include="AuditSec_4_TemporaryKey.pfx" />
+    <None Include="AuditSec_5_TemporaryKey.pfx" />
+    <None Include="IE Toolbars.reg" />
+    <None Include="sccmdict.txt" />
+    <None Include="sccmqueries.wql.readme" />
+    <None Include="upda.ico" />
+    <None Include="mgmt.ico" />
+    <None Include="search.ico" />
+    <None Include="repo.ico" />
+    <None Include="sccmqueries.wql" />
+    <None Include="app.config" />
+    <None Include="SciLexer64.dll" />
+    <None Include="SciLexer.dll" />
+    <None Include="OK.png" />
+    <None Include="NG.png" />
+    <None Include="MIS.png" />
+    <None Include="FBD.png" />
+    <None Include="RA.png" />
+    <EmbeddedResource Include="AuditSecGUI.resx">
+      <DependentUpon>AuditSecGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComputerManagement.resx">
+      <DependentUpon>ComputerManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComputerChooser.resx">
+      <DependentUpon>ComputerChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SDQueueSpeak_GUI.resx">
+      <DependentUpon>SDQueueSpeak_GUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SDQueueSpeakControl.resx">
+      <DependentUpon>SDQueueSpeakControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SizeCollector.resx">
+      <DependentUpon>SizeCollector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StaffDetails_GUI.resx">
+      <DependentUpon>StaffDetails_GUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StaffDetailsControl.resx">
+      <DependentUpon>StaffDetailsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetupWizard.resx">
+      <DependentUpon>SetupWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Unlocker.resx">
+      <DependentUpon>Unlocker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMICollector.resx">
+      <DependentUpon>WMICollector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupEditor.resx">
+      <DependentUpon>GroupEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HotApps.resx">
+      <DependentUpon>HotApps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MBAMControl.resx">
+      <DependentUpon>MBAMControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MBAM_GUI.resx">
+      <DependentUpon>MBAM_GUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComputerReenabler.resx">
+      <DependentUpon>ComputerReenabler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegCollector.resx">
+      <DependentUpon>RegCollector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SCCMCheck.resx">
+      <DependentUpon>SCCMCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SCCMCollectionDesigner.resx">
+      <DependentUpon>SCCMCollectionDesigner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SCCMReporting.resx">
+      <DependentUpon>SCCMReporting.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="AuditSec_TemporaryKey.pfx" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="cipp.jpg" />
+    <None Include="iph.png" />
+    <None Include="BLK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="LyncControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="CiscoUCThirdPartyLib">
+      <Guid>{C1E35DEC-8D9D-4EC0-AABC-5FDA878AFC16}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Outlook">
+      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\prog.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="repo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Run.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Eleph.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Notif.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pub.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Glass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bld.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Dpt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Dom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Speed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Axe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Recent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="test.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Col.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Col2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Container.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Domain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="collection.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bitlocker.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="reg.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="reg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Glass1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Glass2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Glass3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="debug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="online.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="offline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="busy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="busy2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="offline2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="online2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Dpt.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Dpt18.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="batt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="firefox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="java.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="acrobat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="flash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vpn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sso.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="expired.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="chainbrk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="like.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dislike.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dirsize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="filextype.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dirsize.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="l_arr22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="save22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="r_arr22.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

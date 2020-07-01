@@ -1,0 +1,1225 @@
+#20170330002
+
+
+___SCCM Reporting:README___
+Hi=Welcome to SCCM Reporting!
+Select the query of your choice and Start !
+'
+'
+'
+  ____   ____ ____ __  __   ____                       _   _             
+ / ___| / ___/ ___|  \/  | |  _ \ ___ _ __   ___  _ __| |_(_)_ __   __ _ 
+ \___ \| |  | |   | |\/| | | |_) / _ \ `_ \ / _ \| `__| __| | `_ \ / _` |
+  ___) | |__| |___| |  | | |  _ <  __/ |_) | (_) | |  | |_| | | | | (_| |
+ |____/ \____\____|_|  |_| |_| \_\___| .__/ \___/|_|   \__|_|_| |_|\__, |
+                                     |_|                           |___/ 
+													vincent.fontaine@parexel.com
+'
+'
+'
+'
+'
+-
+README:
+-
+	The language used in the 'SCCM Reporting' module of 'AuditSec' is an augmented version of 'WQL'. Please google 'WQL' and 'SQL' for reference. Let us call this augmented version 'V-WQL'.
+-
+-
+	The added value in this augmented version is mostly the possibility to use 'templates', so that queries can be enhanced incrementally. This avoid rewriting from scratch complex queries. Templates are called upon like this :
+-
+		SELECT %template-name%
+		or
+		SELECT %%template-name%, additional-column1, additional-column2...%
+-
+-
+	The variable strings can be grouped in the frame called 'Arguments'.
+They are written like this :
+-
+		var1-name=value1, var-name2=value2...
+-
+In the query body, they are later refered to like this:
+-
+		%var-name%
+		or
+		!var-name! when inside a template block
+-
+If	the	!var-name!	contains the substring 'path',
+	the	value		will be escaped specially as for a file path,
+					which is not suitable for usual character escaping.
+-
+-
+	The 'V-WQL' syntax is:
+-
+		SELECT table-alias.column	as [column-alias]
+										TYPE type-def
+										COMBINE SPLIT NOMERGE HIDE DEBUG
+										COUNT MAXIMUM MINIMUM SUM LAST FIRST
+										func-def1  func-def2 ...
+				,[Blank]			as [column-alias]
+		FROM table as table-alias ...
+		JOIN ... ON condition-def
+		...
+		WHERE condition-def
+-
+-
+		type-def: CHAR, INT, FLOAT, BOOLEAN, STRING, DATETIME, LIST
+		func-def: func-name "func-arg1" "func-arg2"...
+		func-arg: no space, no comma accepted. use \space, \comma
+		funcname:
+			REPLACE			"regexp" "replace"
+							returns itself transformed by "regexp" with "replace"
+			UCASE
+							returns itself turned to upper case
+			LCASE
+							returns itself turned to lower case
+			TRIM
+							returns itself less surrounding spaces
+			ROUND			"n"
+							returns rounded number with "n" fractional digits
+			REPLACEINFINITY	"replacement-number"
+							returns itself if not infinity, "replacement-number" otherwise
+			DATETIMEFORMAT	"c#-date-formats"
+							returns value of type date using the specified c# date formats
+							ie.	yyyyMMdd;yyyy/M/d;dd/MM/yyyy;M/d/yyyy;d/MMM/yyyy;dd/MM/yy;
+								dd-MM-yy;d-MMM-yyyy;d-M-yyyy;dd-MM-yyyy;yyyy-M-d;
+								d.M.yyyy;yyyy.MM.dd.
+			DATETIMEFORMAT	DEFAULT
+						returns value of type date using the default c# date formats
+			DURATION		"$col-ref"
+						returns minutes time span from datetime substraction 
+			KEEPROWIFONE	"keep-flag"
+						keep the row	if "keep-flag" equals 1, delete it otherwise
+			KEEPIFPRED
+						returns itself	if previous column non blank, blank otherwise
+			KEEPIFMATCH		"regexp"
+						returns itself	if matches "regexp", blank otherwise
+			KEEPIFCOLMATCH	"$col-ref" "regexp"
+						returns itself	if column "col-ref" matches "regexp", blank otherwise
+			ONEIFMATCH		"regexp"
+						returns 1		if matches "regexp", 0 otherwise
+			ONEIFCOLMATCH	"$col-ref" "regexp"
+						returns 1		if column "col-ref" matches "regexp", 0 otherwise
+			ONEIFAFTER		"cutoffdate"
+						returns 1		if posterior to "cutoffdate", 0 otherwise
+			=				"value" or "$col-ref"
+						returns "value" or column "col-ref"
+			?=				"regexp" "value" or "$col-ref"
+						returns "value" or column "col-ref" if matches "regexp", itself otherwise
+			+ - * /			"value" or "$col-ref"
+						returns itself plus minus multiply divide "value" or column "col-ref"
+			NOP
+						returns itself	( No OPeration )
+			XOR				"value"
+						returns xor with a bit set at position value
+			ONEIFPOS
+						returns 1		if  positive, 0 otherwise
+			COLLCOUNT
+						returns the collection count
+			HIDE
+						hides the column
+			DEBUG
+						debugs the column function calculation
+			RETURN
+						returns itself and stop the evaluation even if the function chain is not exhausted
+			COLOR-colorname
+						sets the column header background color						
+						possible values are:
+						AliceBlue, LightSalmon, AntiqueWhite, LightSeaGreen, Aqua, LightSkyBlue,
+						Aquamarine, LightSlateGray, Azure, LightSteelBlue, Beige, LightYellow,
+						Bisque, Lime, Black, LimeGreen, BlanchedAlmond, Linen, Blue, Magenta,
+						BlueViolet, Maroon, Brown, MediumAquamarine, BurlyWood, MediumBlue,
+						CadetBlue, MediumOrchid, Chartreuse, MediumPurple, Chocolate, MediumSeaGreen,
+						Coral, MediumSlateBlue, CornflowerBlue, MediumSpringGreen, Cornsilk,
+						MediumTurquoise, Crimson, MediumVioletRed, Cyan, MidnightBlue, DarkBlue,
+						MintCream, DarkCyan, MistyRose, DarkGoldenrod, Moccasin, DarkGray,
+						NavajoWhite, DarkGreen, Navy, DarkKhaki, OldLace, DarkMagena, Olive,
+						DarkOliveGreen, OliveDrab, DarkOrange, Orange, DarkOrchid, OrangeRed,
+						DarkRed, Orchid, DarkSalmon, PaleGoldenrod, DarkSeaGreen, PaleGreen,
+						DarkSlateBlue, PaleTurquoise, DarkSlateGray, PaleVioletRed, DarkTurquoise,
+						PapayaWhip, DarkViolet, PeachPuff, DeepPink, Peru, DeepSkyBlue, Pink,
+						DimGray, Plum, DodgerBlue, PowderBlue, Firebrick, Purple, FloralWhite, Red,
+						ForestGreen, RosyBrown, Fuschia, RoyalBlue, Gainsboro, SaddleBrown, GhostWhite,
+						Salmon, Gold, SandyBrown, Goldenrod, SeaGreen, Gray, Seashell, Green, Sienna,
+						GreenYellow, Silver, Honeydew, SkyBlue, HotPink, SlateBlue, IndianRed, SlateGray,
+						Indigo, Snow, Ivory, SpringGreen, Khaki, SteelBlue, Lavender, Tan, LavenderBlush,
+						Teal, LawnGreen, Thistle, LemonChiffon, Tomato, LightBlue, Turquoise, LightCoral,
+						Violet, LightCyan, Wheat, LightGoldenrodYellow, White, LightGreen, WhiteSmoke,
+						LightGray, Yellow, LightPink
+-
+-
+	$col-ref is a reference to the column named 'col-ref',
+-
+		it is marked with a leading $ character
+		it must refer to a column on the left, since evaluation is done left to right
+		it is possible to refer to $col-n where n is an integer, to refer to n column left-ward
+-
+-
+	Condition-def is the same as in WQL, plus the following items:
+-
+		'Time replacement'
+		%now/yesterday/ndaysago/nweeksago/nmonthsago% DATETIMEFORMAT "c#_DateTime_Format"
+-
+		'Multiple operators expansion'
+		-/NOT LIKE/EQUALS ANY/ALL
+-
+		'Active directory group expansion'
+		IN GROUP
+		ie. IN GROUP "+Europe-All Managers"
+		ie. IN GROUP "SmithJ;JonesB;WilliasK;BrownS;TaylorP;DaviesG;WilsonR"
+		ie. IN GROUP "KrausR+" a manager and its direct reporting staff
+		ie. IN GROUP "KrausR++" a manager and all the reporting staff underneath
+		Subquerying is activated if large collection is submitted.
+		Packeted 150 items at a time.
+-
+		'SMS Collection expansion'
+		IN COLLECTION
+		ie. RES.ResourceID IN COLLECTION "%Pilot%"
+		Collections whose name or comment are either like "%Pilot%"
+-
+		JOIN COLLECTION
+-
+-
+	The SCCM Reporting module has the ability to export the result to an 'Excel' format file. It can 'split' the single sheet result into multiple sheets, upon Domain, Site and Department by default. Mark the columns of your choice for splitting, either:
+-
+		, colname1 AS [colalias1] SPLIT
+		, colname2 AS [colalias2] SPLIT
+		, colname3 AS [colalias3] SPLIT
+-
+or
+-
+		Argument: Split=colalias1;colalias2...
+						;!colalias3 to remove from the split
+-
+-
+	When a users list is submitted, the users not reported against any computer are listed as !NOTFOUND!
+	This feature can be disabled by specifying the argument NOTFOUND=false
+-
+-
+	The applied 'Template Level' (ie. details level) can be adjusted with a variable in the arguments:
+-
+		TemplateLevel=_TEMPLATE_ - Base Template - Level Mini
+		or shorter
+		TemplateLevel=Mini
+-
+	If no level specified the following default level is used:
+-
+		TemplateLevel=_TEMPLATE_ - Base Template - Level Full
+-
+-
+	SMS2003 Extended WQL WHERE Clause supports:
+-
+		now:	GETDATE ()
+		sub:	DATEDIFF(YY/MM/DD/HH/MI/SS, Date0, Date1)
+		age:	DATEDIFF(DD, Date1, GETDATE())
+		add:	DATEADD (YY/MM/DD/HH/MI/SS, n, Date1)
+-
+		example: SELECT RES.ResourceID, RES.ResourceType, RES.Name, RES.SMSUniqueIdentifier, RES.ResourceDomainORWorkgroup, RES.Client
+		FROM SMS_R_SYSTEM AS RES WHERE ((DATEDIFF(HH, RES.AgentTime, GETDATE()) < 23)
+		AND AgentName = "SMS_AD_SYSTEM_DISCOVERY_AGENT") AND (RES.ClientVersion < "4.00.6487.2000" OR RES.ClientVersion IS NULL)
+-
+-
+	WQL Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/aa394606(v=vs.85).aspx
+-
+-
+-
+	The result can be 'published' on a share drive, and 'notified' to registered people.
+-
+	The queries can be run automatically with the 'Scheduler', hourly, daily, weekly, monthly.
+-
+	The queries can be run on 'Large' mode for several thousand items, on 'Preview' mode for quick testing.
+-
+
+/*Modified by FontaiV on 10-Dec-2012 18:07*/
+¤
+
+
+_CONDITION_ - Active
+
+WHERE (
+		RES.Active = 1
+	AND	RES.Obsolete = 0 /*also: RES.Obsolete is NULL*/
+	AND	RES.Client = 1
+)
+/*Modified by FontaiV on 6-Dec-2012 17:13*/
+¤
+
+
+_CONDITION_ - Chassis is Desktop
+
+WHERE (
+		ENC.ChassisTypes="24"
+	OR	ENC.ChassisTypes="22"
+	OR	ENC.ChassisTypes="20"
+	OR	ENC.ChassisTypes="19"
+	OR	ENC.ChassisTypes="17"
+	OR	ENC.ChassisTypes="16"
+	OR	ENC.ChassisTypes="15"
+	OR	ENC.ChassisTypes="7"
+	OR	ENC.ChassisTypes="6"
+	OR	ENC.ChassisTypes="5"
+	OR	ENC.ChassisTypes="4"
+	OR	ENC.ChassisTypes="3"
+	OR	ENC.ChassisTypes="2"
+	OR	ENC.ChassisTypes="1"
+	OR	ENC.ChassisTypes="0"
+)
+¤
+
+
+_CONDITION_ - Chassis is Laptop
+
+WHERE (
+		ENC.ChassisTypes="21"
+	OR	ENC.ChassisTypes="18"
+	OR	ENC.ChassisTypes="14"
+	OR	ENC.ChassisTypes="13"
+	OR	ENC.ChassisTypes="12"
+	OR	ENC.ChassisTypes="11"
+	OR	ENC.ChassisTypes="10"
+	OR	ENC.ChassisTypes="9"
+	OR	ENC.ChassisTypes="8"
+)
+¤
+
+
+_CONDITION_ - Chassis is Server
+
+WHERE (
+		ENC.ChassisTypes="23"
+)
+¤
+
+
+_CONDITION_ - OS is not Server
+
+WHERE (
+		OPS.Caption			NOT LIKE "%Server%"
+)
+/*Modified by FontaiV on 29-Jan-2013 16:37*/
+¤
+
+
+_CONDITION_ - Chassis is Virtual
+
+WHERE (
+		COMP.Model	LIKE "%VMWARE%"
+	OR	COMP.Model	LIKE "%Microsoft%"
+	OR	ENC.ChassisTypes="1"
+)
+¤
+
+
+_CONDITION_ - User is Top_OR_Last
+Users=your_users_list
+WHERE (
+	CON.TopConsoleUser IN GROUP "%Users%" LCASE "\\" "\\"
+OR
+	RES.LastLogonUserName IN GROUP "%Users%" LCASE "\w+\\" ""
+)
+/*Modified by FontaiV on 22-Nov-2012 02:24*/
+¤
+
+
+_CONDITION_ - User is Top
+Users=your_users_list
+WHERE (
+	CON.TopConsoleUser IN GROUP "%Users%" LCASE "\\" "\\"
+)
+/*Modified by FontaiV on 22-Nov-2012 02:24*/
+¤
+
+
+_TEMPLATE_ - Base Variables
+ComputerModelReplace=UCASE REPLACE "^\*$" "" REPLACE "TO\spaceBE\spaceFILLED.*" "" REPLACE "INVALID" "" REPLACE "-\[.*" "" REPLACE "\space\(.*\)" "" REPLACE "\(.*" "" REPLACE "VMWARE.*" "VM-VMWARE" REPLACE "VIRTUAL\spaceMACHINE" "VM-MICROSOFT" REPLACE "PARALLELS.*" "VM-PARALLELS" REPLACE "PRECISION\spaceWORKSTATION" "PRECISION" REPLACE "EVO\s" "Compaq\space" REPLACE "ELITEBOOK\space" "" REPLACE "HP\spaceCOMPAQ" "HP" REPLACE "(HP\space\w+)\space.*" "$1" REPLACE "^DSDT_PRJ.*$" "HP\spaceDC7900" REPLACE "^30DB____.*$" "HP\space6930p" REPLACE "^DC\space7700.*$" "HP\spaceDC7700" REPLACE "^NC6400.*$" "HP\spaceNC6400" REPLACE "^NC65XX.*$" "HP\spaceNC65XX" REPLACE "^6910P.*$" "HP\spaceNC6910p" REPLACE "D510.*" "D510" REPLACE "DH67BL.*" "Intel\spaceDH67BL" REPLACE "D945GCZ.*" "Intel\spaceD945GCZ" REPLACE "IBM\spaceSYSTEM" "IBM" REPLACE "^\wLENOVO" "Lenovo" REPLACE ".*M81[-/].*" "M81" REPLACE "^M81$" "Lenovo\spaceM81" REPLACE "TP-6I.*" "Lenovo\spaceT410" REPLACE "417883G" "Lenovo\spaceT420" REPLACE "8287\w*" "Lenovo\spaceA52" REPLACE "1141\w*" "Lenovo\spaceE420" REPLACE "1577\w*" "Lenovo\spaceE71" REPLACE "8808\w*" "Lenovo\spaceM55" REPLACE "9632\w*" "Lenovo\spaceM55e" REPLACE "6072\w*" "Lenovo\spaceM57" REPLACE "9088\w*" "Lenovo\spaceM57p" REPLACE "9481\w*" "Lenovo\spaceM57e" REPLACE "7638\w*" "Lenovo\spaceM58" REPLACE "7639\w*" "Lenovo\spaceM58" REPLACE "9964\w*" "Lenovo\spaceM58" REPLACE "7220\w*" "Lenovo\spaceM58p" REPLACE "6137\w*" "Lenovo\spaceM58p" REPLACE "8910\w*" "Lenovo\spaceM58p" REPLACE "6234\w*" "Lenovo\spaceM58p" REPLACE "7483\w*" "Lenovo\spaceM58p" REPLACE "7493\w*" "Lenovo\spaceM80" REPLACE "5025\w*" "Lenovo\spaceM81" REPLACE "0385\w*" "Lenovo\spaceM81" REPLACE "1730\w*" "Lenovo\spaceM81" REPLACE "7518\w*" "Lenovo\spaceM81" REPLACE "2929\w*" "Lenovo\spaceM82" REPLACE "10AH\w*" "Lenovo\spaceM83" REPLACE "10AK\w*" "Lenovo\spaceM83" REPLACE "2742\w*" "Lenovo\spaceM82" REPLACE "3314\w*" "Lenovo\spaceM92z" REPLACE "4157\w*" "Lenovo\spaceS20" REPLACE "2924\w*" "Lenovo\spaceT410s" REPLACE "2522\w*" "Lenovo\spaceT410" REPLACE "2518\w*" "Lenovo\spaceT410" REPLACE "2537\w*" "Lenovo\spaceT410" REPLACE "2516\w*" "Lenovo\spaceT410s" REPLACE "2912\w*" "Lenovo\spaceT410s" REPLACE "2374\w*" "Lenovo\spaceT42" REPLACE "4177\w*" "Lenovo\spaceT420" REPLACE "4178\w*" "Lenovo\spaceT420" REPLACE "4180\w*" "Lenovo\spaceT420" REPLACE "4236\w*" "Lenovo\spaceT420" REPLACE "4174\w*" "Lenovo\spaceT420s" REPLACE "2349\w*" "Lenovo\spaceT430" REPLACE "2347\w*" "Lenovo\spaceT430" REPLACE "2344\w*" "Lenovo\spaceT430" REPLACE "2356\w*" "Lenovo\spaceT430s" REPLACE "2342\w*" "Lenovo\spaceT430" REPLACE "20BH\w*" "Lenovo\spaceW540" REPLACE "20B7\w*" "Lenovo\spaceT440" REPLACE "20AW\w*" "Lenovo\spaceT440p" REPLACE "20AR\w*" "Lenovo\spaceT440s" REPLACE "20AS\w*" "Lenovo\spaceL440" REPLACE "20AM\w*" "Lenovo\spaceX240" REPLACE "4243\w*" "Lenovo\spaceT520" REPLACE "2500\w*" "Lenovo\spaceT60" REPLACE "2447\w*" "Lenovo\spaceW530" REPLACE "1294\w*" "Lenovo\spaceX1" REPLACE "3444\w*" "Lenovo\spaceX1" REPLACE "3460\w*" "Lenovo\spaceX1" REPLACE "2985\w*" "Lenovo\spaceX201" REPLACE "3680\w*" "Lenovo\spaceX201" REPLACE "3626\w*" "Lenovo\spaceX201" REPLACE "4291\w*" "Lenovo\spaceX220" REPLACE "IGU9875\w*" "Lenovo\spaceX220" REPLACE "2325\w*" "Lenovo\spaceX230" REPLACE "2324\w*" "Lenovo\spaceX230" REPLACE "2776\w*" "Lenovo\spaceX301" REPLACE "1702\w*" "Lenovo\spaceX60" REPLACE "1706\w*" "Lenovo\spaceX60" REPLACE "1709\w*" "Lenovo\spaceX60" REPLACE "7675\w*" "Lenovo\spaceX60" REPLACE "7666\w*" "Lenovo\spaceX61" REPLACE "7674\w*" "Lenovo\spaceX61" REPLACE "7676\w*" "Lenovo\spaceX61" REPLACE "7673\w*" "Lenovo\spaceX61" REPLACE "20BX\w*" "Lenovo\spaceT450s" REPLACE "10AH\w*" "Lenovo\spaceT450s" REPLACE "20BU\w*" "Lenovo\spaceT450" REPLACE "20FA\w*" "Lenovo\spaceT460" REPLACE "20FV\w*" "Lenovo\spaceL460" REPLACE "20BW\w*" "Lenovo\spaceT450s" REPLACE "20FA\w*" "Lenovo\spaceT460s", ComputerChassisReplace=REPLACE "24" "Desktop" REPLACE "23" "Server" REPLACE "22" "Desktop" REPLACE "21" "Laptop" REPLACE "20" "Desktop" REPLACE "19" "Desktop" REPLACE "18" "Laptop" REPLACE "17" "Desktop" REPLACE "16" "Desktop" REPLACE "15" "Desktop" REPLACE "14" "Laptop" REPLACE "13" "Laptop" REPLACE "12" "Laptop" REPLACE "11" "Laptop" REPLACE "10" "Laptop" REPLACE "9" "Laptop" REPLACE "8" "Laptop" REPLACE "7" "Desktop" REPLACE "6" "Desktop" REPLACE "5" "Desktop" REPLACE "4" "Desktop" REPLACE "3" "Desktop" REPLACE "2" "Desktop" REPLACE "1" "Desktop" REPLACE "0" "Desktop", ComputerMakerReplace=UCASE REPLACE "HEWLETT-PACKARD" "HP" REPLACE "DELL.*" "DELL" REPLACE "VIA\spaceTECH.*" "VIATECH" REPLACE "PARALLELS.*" "PARALLELS" REPLACE "VMWARE.*" "VMWARE" REPLACE "INTEL.*" "INTEL" REPLACE "MICROSOFT.*" "MICROSOFT" REPLACE "TO\spaceBE\spaceFILLED.*" "", ComputerCPUReplace=REPLACE "\(R\)" "" REPLACE "\(TM\)" "" REPLACE "CPU" "" REPLACE "processor" "" REPLACE "\s+" "\space" TRIM, ComputerSNReplace=REPLACE "Not\spaceAvailable" "" REPLACE "None" "", OSReplace=REPLACE ".*7.*" "7" REPLACE ".*2008.*" "2008" REPLACE ".*2003.*" "2003" REPLACE ".*2000.*" "2000" REPLACE ".*XP.*" "XP" REPLACE ".*NT.*" "NT", ServerReplace=REPLACE ".*server.*" "Server" REPLACE "^((?!Server).*)$" "", PlatformReplace=LCASE REPLACE ".*x86.*" "x86" REPLACE ".*x64.*" "x64", SPReplace=REPLACE "Service\spacePack\space" "SP", DomainOUReplace=SPLIT LCASE REPLACE "/.*" "", SiteOUReplace=SPLIT UCASE REPLACE ".*;" "" REPLACE "([^/]*)/([^/]*)/([^/]*)(.*)" "$2" REPLACE "([^/]*)/([^/]*)" "$2", DepartmentOUReplace=SPLIT UCASE REPLACE ".*;" "" REPLACE "([^/]*)/([^/]*)/([^/]*)(.*)" "$3" REPLACE "([^/]*)/([^/]*)" "", SubOUReplace=UCASE REPLACE ".*;" "" REPLACE "([^/]*)/([^/]*)/([^/]*)(.*)" "$4" REPLACE "([^/]*)/([^/]*)" "", TopUserReplace=UCASE REPLACE "([^0-9]*[0-9]+[^0-9]*)+\\(.*)" "(Local)$2" REPLACE ".*\\" "" TRIM, defaultDateFormats=yyyyMMdd;yyyy/M/d;dd/MM/yyyy;M/d/yyyy;d/MMM/yyyy;dd/MM/yy;d/M/yyyy;dd-MM-yy;d-MMM-yyyy;d-M-yyyy;dd-MM-yyyy;yyyy-M-d;d-MMM-yy;d-MMMM-yyyy;d.M.yyyy;yyyy.MM.dd.;d.MMM.yyyy;d\\MMM\\yyyy, VersionMajorReplace=REPLACE "\s+" "" REPLACE "\comma" "." REPLACE "(\d*)[.].*" "$1" REPLACE "^$" "0", VersionMinorReplace=REPLACE "\s+" "" REPLACE "\comma" "." REPLACE "\d*[.](\d*)[.].*" "$1" REPLACE "^\d*[.](\d*)$" "$1" REPLACE "^$" "0", VersionBuildReplace=REPLACE "\s+" "" REPLACE "\comma" "." REPLACE "[^.]*[.][^.]*[.]([^.]*)[.].*" "$1" REPLACE "[^.]*[.][^.]*[.]([^.]+)" "$1" REPLACE "^\d*[.]\d*$" "0" REPLACE "^$" "0", VersionRevisionReplace=REPLACE "\s+" "" REPLACE "\comma" "." REPLACE "[^.]*[.][^.]*[.][^.]*[.]([^.]+)" "$1" REPLACE "[^.]*[.][^.]*[.][^.]*" "" REPLACE "^\d*[.]\d*$" "0" REPLACE "^\d*[.]\d*.\d*$" "0" REPLACE "^$" "0", FLAGS=
+SELECT 
+/*
+This template holds base variables.
+Their scope is global and constant.
+They maybe be used for repeating code replacement.
+In the arguments portion, define:	 var-aaa=value
+In the queries, use:				 !var-aaa!
+The following base variables are defined so far:
+	-
+	- ComputerModelReplace
+	- ComputerMakerReplace
+	- ComputerCPUReplace
+	- ComputerChassisReplace
+	- ComputerSNReplace
+	- OSReplace
+	- ServerReplace
+	- PlatformReplace
+	- SPReplace
+	- DomaineOUReplace
+	- SiteOUReplace
+	- DepartmentOUReplace
+	- SubOUReplace
+	- TopUserReplace*/
+/*Modified by FontaiV on 5-May-2014 10:27*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level None
+
+SELECT DISTINCT,
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/          Level None 
+*/
+/*Modified by FontaiV on 28-Mar-2013 10:19*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level Mini
+
+SELECT DISTINCT
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/          Level Mini 
+*/
+		RES.NetbiosName					AS [Computer]
+		,RES.ADSiteName					AS [ADSite]
+		,CON.TopConsoleUser				AS [TopUser]		COLOR-GoldenRod !TopUserReplace!
+		,RES.LastLogonUserName			AS [LastUser_]	HIDE
+		,RES.LastLogonUserDomain		AS [LastUser]	+ "\" /*"*/ + $LastUser_
+														COLOR-Tomato !TopUserReplace!
+														LCASE REPLACE "\(local\)" "(Local)"
+		,CON.TopConsoleUser				AS [Top_OR_Last]	COLOR-DarkSeaGreen !TopUserReplace!
+														?= "^$" $LastUser
+														UCASE REPLACE "\(LOCAL\)" "(Local)"
+		,CON.TopConsoleUser				AS [PrimaryUser]	COLOR-DarkSeaGreen !TopUserReplace!
+														REPLACE "^\(Local\).*" ""
+														?= "^$" $LastUser
+														UCASE REPLACE "\(LOCAL\)" "(Local)"
+														REPLACE "^\(Local\).*" ""
+		,RES.ResourceDomainORWorkgroup	AS [Comp_Domain]	UCASE
+FROM
+		SMS_R_System						AS	RES
+LEFT JOIN
+		SMS_G_System_OPERATING_SYSTEM		AS	OPS
+	ON	RES.ResourceID						=	OPS.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USAGE	AS	CON
+	ON	RES.ResourceID						=	CON.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_ENCLOSURE		AS	ENC
+	ON	RES.ResourceID						=	ENC.ResourceID
+LEFT JOIN
+		SMS_G_System_COMPUTER_SYSTEM		AS	COMP
+	ON	RES.ResourceID 						=	COMP.ResourceID
+LEFT JOIN
+		SMS_R_User							AS	USR
+	ON	CON.TopConsoleUser					=	USR.UniqueUserName
+LEFT JOIN
+		SMS_R_User							AS	USR2
+	ON	RES.LastLogonUserName				=	USR2.UserName
+/*WHERE %_CONDITION_ - Active*/
+/*Modified by FontaiV on 23-May-2016 15:33*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level Mini+User
+SelectDIRXML=LastName+FirstName
+SELECT %%_TEMPLATE_ - Base Template - Level Mini%
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/       Level Mini+User
+*/
+		,USR.FullUserName	AS [Top_FullName]		COLOR-GoldenRod HIDE
+		,USR.employeeID		AS [Top_PersonnelID]		COLOR-GoldenRod HIDE
+		,USR.department		AS [Top_OperatingUnit]	COLOR-GoldenRod HIDE
+		,USR.division		AS [Top_DptNumber]	COLOR-GoldenRod HIDE
+		,USR.extensionAttribute2 AS [Top_StaffStatus]	REPLACE "0" "Pre-hire" REPLACE "1" "Active" REPLACE "2" "LOA" REPLACE "3" "Terminated" COLOR-GoldenRod HIDE
+		
+		,USR2.FullUserName	AS [Last_FullName]		COLOR-Tomato HIDE
+		,USR2.employeeID	AS [Last_PersonnelID]	COLOR-Tomato HIDE
+		,USR2.department	AS [Last_OperatingUnit]	COLOR-Tomato HIDE
+		,USR2.division		AS [Last_DptNumber]	COLOR-Tomato HIDE
+		,USR2.extensionAttribute2 AS [Last_StaffStatus]	REPLACE "0" "Pre-hire" REPLACE "1" "Active" REPLACE "2" "LOA" REPLACE "3" "Terminated" COLOR-GoldenRod HIDE
+		
+		,USR.FullUserName	AS [FullName]	COLOR-DarkSeaGreen ?= "^$" $Last_FullName
+		,USR.employeeID		AS [PersonnelID]		COLOR-DarkSeaGreen ?= "^$" $Last_PersonnelID
+		,USR.department		AS [OperatingUnit]	COLOR-DarkSeaGreen ?= "^$" $Last_OperatingUnit
+		,USR.division		AS [DptNumber]	COLOR-DarkSeaGreen ?= "^$" $Last_DptNumber
+		,USR.extensionAttribute2 AS [StaffStatus]	REPLACE "0" "Pre-hire" REPLACE "1" "Active" REPLACE "2" "LOA" REPLACE "3" "Terminated" COLOR-GoldenRod HIDE
+%
+/*Modified by FontaiV on 23-Jan-2013 17:00*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level Medium
+SelectDIRXML=departmentnumber+PXLSBU+PXLoperatingdescription+PXLregion+PXLCountrySys+physicalDeliveryOfficeName
+SELECT DISTINCT
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/       Level Medium
+*/
+		RES.NetbiosName					AS [Computer]
+		,RES.ADSiteName					AS [ADSite]
+		,CON.TopConsoleUser				AS [TopUser]		COLOR-GoldenRod !TopUserReplace!
+		,RES.LastLogonUserName			AS [LastUser_]	HIDE
+		,RES.LastLogonUserDomain		AS [LastUser]	+ "\" /*"*/ + $LastUser_
+														COLOR-Tomato !TopUserReplace!
+														LCASE REPLACE "\(local\)" "(Local)"
+		,CON.TopConsoleUser				AS [Top_OR_Last]	COLOR-DarkSeaGreen !TopUserReplace!
+														?= "^$" $LastUser
+														UCASE REPLACE "\(LOCAL\)" "(Local)"
+		,CON.TopConsoleUser				AS [PrimaryUser]	COLOR-DarkSeaGreen !TopUserReplace!
+														REPLACE "^\(Local\).*" ""
+														?= "^$" $LastUser
+														UCASE REPLACE "\(LOCAL\)" "(Local)"
+														REPLACE "^\(Local\).*" ""
+		,RES.ResourceDomainORWorkgroup	AS [Comp_Domain]		UCASE
+		,OPS.LastBootUpTime				AS [LastBootup]
+		,OPS.Caption					AS [OperatingSystem] !OSReplace!
+		,OPS.Caption					AS [Server]			!ServerReplace!
+		,COMP.SystemType				AS [Platform]		!PlatformReplace!
+		,OPS.CSDVersion					AS [ServicePack]		!SPReplace!
+		,ENC.ChassisTypes				AS [Chassis]			!ComputerChassisReplace!
+		,COMP.Model						AS [Model]			!ComputerModelReplace!
+		,ENC.SerialNumber				AS [SerialNumber]	REPLACE "Not\spaceAvailable" ""
+FROM
+		SMS_R_System					AS	RES
+LEFT JOIN
+		SMS_G_System_OPERATING_SYSTEM	AS	OPS
+	ON	RES.ResourceID					=	OPS.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USAGE AS	CON
+	ON	RES.ResourceID					=	CON.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_ENCLOSURE	AS	ENC
+	ON	RES.ResourceID					=	ENC.ResourceID
+LEFT JOIN
+		SMS_G_System_COMPUTER_SYSTEM	AS	COMP
+	ON	RES.ResourceID 					=	COMP.ResourceID
+LEFT JOIN
+		SMS_R_User						AS	USR
+	ON	CON.TopConsoleUser				=	USR.UniqueUserName
+LEFT JOIN
+		SMS_R_User						AS	USR2
+	ON	RES.LastLogonUserName			=	USR2.UserName
+/*WHERE %_CONDITION_ - Active*/
+/*Modified by FontaiV on 15-Jan-2015 11:28*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level Medium+Comp
+SelectDIRXML=departmentnumber+PXLSBU+PXLoperatingdescription+PXLregion+PXLCountrySys+physicalDeliveryOfficeName
+SELECT %%_TEMPLATE_ - Base Template - Level Medium%
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/       Level Medium+Comp
+*/
+		,RES.SystemOUName	AS [Domain]				!DomainOUReplace!
+		,RES.SystemOUName	AS [Site]				!SiteOUReplace!
+		,RES.SystemOUName	AS [Department]			!DepartmentOUReplace!
+%
+
+/*Modified by FontaiV on 11-Dec-2012 17:27*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level Medium+User
+SelectDIRXML=LastName+FirstName
+SELECT %%_TEMPLATE_ - Base Template - Level Medium%
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/       Level Medium+User
+*/
+					/*WQL weird with array USR/USR2 inversion*/
+					,USR.UserOUName		AS [Last_Domain]		!DomainOUReplace!		HIDE
+					,USR.UserOUName		AS [Last_Site]		!SiteOUReplace!			HIDE
+					,USR.UserOUName		AS [Last_Department]	!DepartmentOUReplace!	HIDE
+					,USR2.UserOUName	AS [Top_Domain]		!DomainOUReplace!		HIDE
+					,USR2.UserOUName	AS [Top_Site]		!SiteOUReplace!			HIDE
+					,USR2.UserOUName	AS [Top_Department]	!DepartmentOUReplace!	HIDE
+		,USR2.UserOUName	AS [Domain]				COLOR-DarkSeaGreen !DomainOUReplace!
+													?= "^$" $Last_Domain
+		,USR2.UserOUName	AS [Site]				COLOR-DarkSeaGreen !SiteOUReplace!
+													?= "^$" $Last_Site
+		,USR2.UserOUName	AS [Department]			COLOR-DarkSeaGreen !DepartmentOUReplace!
+													?= "^$" $Last_Department
+					,USR.FullUserName	AS [Top_FullName]		COLOR-GoldenRod		HIDE
+					,USR.employeeID		AS [Top_PersonnelID]		COLOR-GoldenRod		HIDE
+					,USR.department		AS [Top_OperatingUnit]	COLOR-GoldenRod		HIDE
+					,USR.division		AS [Top_DptNumber]		COLOR-GoldenRod		HIDE
+					,USR2.FullUserName	AS [Last_FullName]		COLOR-Tomato		HIDE
+					,USR2.employeeID	AS [Last_PersonnelID]	COLOR-Tomato		HIDE
+					,USR2.department	AS [Last_OperatingUnit]	COLOR-Tomato		HIDE
+					,USR2.division		AS [Last_DptNumber]		COLOR-Tomato		HIDE
+					,USR2.mail			AS [Last_Email]			COLOR-Tomato		HIDE
+		,USR.FullUserName	AS [FullName]			COLOR-DarkSeaGreen
+													?= "^$" $Last_FullName
+		,USR.employeeID		AS [PersonnelID]			COLOR-DarkSeaGreen
+													?= "^$" $Last_PersonnelID
+		,USR.department		AS [OperatingUnit]		COLOR-DarkSeaGreen
+													?= "^$" $Last_OperatingUnit
+		,USR.division		AS [DptNumber]			COLOR-DarkSeaGreen
+													?= "^$" $Last_OperatingUnit
+		,USR.mail			AS [Email]				COLOR-DarkSeaGreen
+													?= "^$" $Last_Email
+%
+
+/*Modified by FontaiV on 23-Jan-2013 17:02*/
+¤
+
+
+
+
+
+_TEMPLATE_ - Base subTemplate - Level Full0
+SelectADS=InstallationDate+CorrectPath, SelectDIRXML=departmentnumber+PXLSBU+PXLoperatingdescription+PXLregion+PXLCountrySys+physicalDeliveryOfficeName
+SELECT %%_TEMPLATE_ - Base subTemplate - Level Full1%
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/       Level Full0
+*/
+		,CON.TotalConsoleTime			AS [TotalMin]	HIDE
+		,CON2.TotalUserConsoleMinutes	AS [Top_Min]		HIDE
+		,								AS [TopPercent] COLOR-DarkSeaGreen
+														= $Top_Min / $TotalMin * 100
+														REPLACEINFINITY 0 ROUND 0
+														KEEPIFCOLMATCH $Top_Min ".+"
+		,CON2.TotalUserConsoleMinutes	AS [TopPercent10] COLOR-SeaGreen
+														= $Top_Min / $TotalMin * 10
+														REPLACEINFINITY 0 ROUND 0
+														KEEPIFCOLMATCH $Top_Min ".+"
+		,CON.TotalConsoleTime			AS [TotalWeeks]	COLOR-DarkSeaGreen
+														/ 10080 ROUND 0 REPLACE "^$" "0"
+														KEEPIFCOLMATCH $Top_Min ".+"
+		,CON2.NumberOfConsoleLogons		AS [Logons]		COLOR-DarkSeaGreen
+														REPLACE "^$" "0"
+														KEEPIFCOLMATCH $Top_Min ".+"
+		,CON2.NumberOfConsoleLogons		AS [Logons100]	COLOR-SeaGreen
+														/ 100 ROUND 0 REPLACE "^$" "0"
+														KEEPIFCOLMATCH $Top_Min ".+"
+		,CON.TopConsoleUser				AS [PUCertainty]	COLOR-DarkSeaGreen
+														= $TopUser KEEPIFMATCH "[^(]+"
+														REPLACE ".+"		"Certain"
+														KEEPIFCOLMATCH	$TotalWeeks
+														"(.*;)*([1-9]|[0-9]{3})(\.[0-9]+)*"
+														REPLACE "^$"		"Uncertain"
+		,CON.TopConsoleUser				AS [PrimaryUser]	COLOR-DarkSeaGreen
+														= $TopUser
+														KEEPIFCOLMATCH $PUCertainty "Certain"
+														?= "^$" $LastUser UCASE
+		,RES.SMSUniqueIdentifier		AS [Duplicate]	COUNT
+%
+/*Modified by FontaiV on 11-Dec-2012 18:21*/
+¤
+
+
+
+_TEMPLATE_ - Base subTemplate - Level Full1
+SelectADS=InstallationDate+CorrectPath, SelectDIRXML=departmentnumber+PXLSBU+PXLoperatingdescription+PXLregion+PXLCountrySys+physicalDeliveryOfficeName
+SELECT DISTINCT
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/       Level Full1
+*/
+		RES.NetbiosName						AS [Computer]
+		,RES.ADSiteName						AS [ADSite]
+		,RES.ResourceDomainORWorkgroup		AS [Comp_Domain]		UCASE
+		,OPS.LastBootUpTime					AS [LastBootup]		TYPE DATETIME MAXIMUM
+		,OPS.Caption						AS [OperatingSystem]	!OSReplace!
+		,OPS.Caption						AS [Server]			!ServerReplace!
+		,COMP.SystemType					AS [Platform]		!PlatformReplace!
+		,OPS.CSDVersion						AS [ServicePack]		!SPReplace!
+		,ENC.ChassisTypes					AS [Chassis]			!ComputerChassisReplace!
+		,COMP.Model							AS [Model]			!ComputerModelReplace!
+		,ENC.SerialNumber					AS [SerialNumber]	!ComputerSNReplace!
+		,CPU.Name							AS [CPU]				!ComputerCPUReplace!
+		,CPU.MaxClockSpeed					AS [CPU_Ghz]			TYPE FLOAT / 1024 ROUND 1
+		,RAM.TotalPhysicalMemory			AS [RAM_GB]			TYPE FLOAT / 1048576 ROUND 1
+		,DISK.Size							AS [Disk_GB]			TYPE INT SUM / 1024
+		,LDISK.Size							AS [Disk_Total]		TYPE INT SUM / 1024 HIDE
+		,LDISK.FreeSpace					AS [Disk_Free]		TYPE INT SUM / 1024 HIDE
+		,									AS [Disk_Used]		TYPE INT SUM			HIDE
+																= $Disk_Total - $Disk_Free
+		,									AS [C_Used-30]		TYPE INT SUM
+																= $Disk_Used - 30
+																?= "-.*" "0"
+		/*, BIO.RevisionID AS [BIOS_revID]*/
+FROM
+		SMS_R_System						AS	RES
+LEFT JOIN
+		SMS_G_System_OPERATING_SYSTEM		AS	OPS
+	ON	RES.ResourceID						=	OPS.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USAGE	AS	CON
+	ON	RES.ResourceID						=	CON.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USER	AS	CON2
+	ON	RES.ResourceID						=	CON2.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_ENCLOSURE		AS	ENC
+	ON	RES.ResourceID						=	ENC.ResourceID
+LEFT JOIN
+		SMS_G_System_PROCESSOR				AS	CPU
+	ON	RES.ResourceID						=	CPU.ResourceID
+LEFT JOIN
+		SMS_G_System_X86_PC_MEMORY			AS	RAM
+	ON	RES.ResourceID 						=	RAM.ResourceID
+LEFT JOIN
+		SMS_G_System_DISK					AS	DISK
+	ON	RES.ResourceID						=	DISK.ResourceID
+LEFT JOIN
+		SMS_G_System_LOGICAL_DISK			AS	LDISK
+	ON	RES.ResourceID						=	LDISK.ResourceID
+LEFT JOIN
+		SMS_G_System_COMPUTER_SYSTEM		AS	COMP
+	ON	RES.ResourceID 						=	COMP.ResourceID
+/*LEFT JOIN
+		SMS_G_System_BIOS___do_not_use		AS	BIO
+	ON	RES.ResourceID 						=	BIO.ResourceID*/
+LEFT JOIN
+		SMS_R_User							AS	USR
+	ON	CON.TopConsoleUser					=	USR.UniqueUserName
+LEFT JOIN
+		SMS_R_User							AS	USR2
+	ON	RES.LastLogonUserName				=	USR2.UserName
+WHERE
+		CON2.SystemConsoleUser				=	CON.TopConsoleUser
+AND		DISK.MediaType						LIKE "Fixed%"
+AND		LDISK.Description					LIKE "%Fixed%"
+AND		LDISK.DeviceID						= "C:"
+/*WHERE %_CONDITION_ - Active*/
+/*Modified by FontaiV on 8-Dec-2016 17:10*/
+¤
+
+
+
+
+
+_TEMPLATE_ - Base Template - Level Full
+SelectADS=InstallationDate+CorrectPath, SelectDIRXML=departmentnumber+PXLSBU+PXLoperatingdescription+PXLregion+PXLCountrySys+physicalDeliveryOfficeName
+SELECT %%_TEMPLATE_ - Base subTemplate - Level Full0%
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/       Level Full
+*/
+		,CON.TopConsoleUser				AS [TopUser]		COLOR-GoldenRod !TopUserReplace!
+		,RES.LastLogonUserName			AS [LastUser_]	HIDE
+		,RES.LastLogonUserDomain		AS [LastUser]	+ "\" /*"*/ + $LastUser_
+														COLOR-Tomato !TopUserReplace!
+														LCASE REPLACE "\(local\)" "(Local)"
+		,CON.TopConsoleUser				AS [Top_OR_Last]	COLOR-DarkSeaGreen !TopUserReplace!
+														?= "^$" $LastUser
+														UCASE REPLACE "\(LOCAL\)" "(Local)"
+		,CON.TopConsoleUser				AS [PrimaryUser]	COLOR-DarkSeaGreen !TopUserReplace!
+														REPLACE "^\(Local\).*" ""
+														?= "^$" $LastUser
+														UCASE REPLACE "\(LOCAL\)" "(Local)"
+														REPLACE "^\(Local\).*" ""
+%
+/*Modified by FontaiV on 11-Dec-2012 17:59*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level Full+Comp
+SelectADS=InstallationDate+CorrectPath, SelectDIRXML=departmentnumber+PXLSBU+PXLoperatingdescription+PXLregion+PXLCountrySys+physicalDeliveryOfficeName
+SELECT %%_TEMPLATE_ - Base Template - Level Full%
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/       Level Full+Comp
+*/
+		,RES.SystemOUName		AS [Domain]		!DomainOUReplace!
+		,RES.SystemOUName		AS [Site]		!SiteOUReplace!
+		,RES.SystemOUName		AS [Department]	!DepartmentOUReplace!
+		/*,RES.SystemOUName		AS [SubOU]		!SubOUReplace!*/
+%
+/*Modified by FontaiV on 11-Dec-2012 18:30*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level Full+User
+
+SELECT %%_TEMPLATE_ - Base Template - Level Full%
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/          Level Full+User
+*/
+					/*WQL weird with array USR/USR2 inversion*/
+					,USR.UserOUName		AS [Last_Domain]		!DomainOUReplace!		HIDE
+					,USR.UserOUName		AS [Last_Site]		!SiteOUReplace!			HIDE
+					,USR.UserOUName		AS [Last_Department]	!DepartmentOUReplace!	HIDE
+					,USR2.UserOUName	AS [Top_Domain]		!DomainOUReplace!		HIDE
+					,USR2.UserOUName	AS [Top_Site]		!SiteOUReplace!			HIDE
+					,USR2.UserOUName	AS [Top_Department]	!DepartmentOUReplace!	HIDE
+		,USR2.UserOUName	AS [Domain]				COLOR-DarkSeaGreen !DomainOUReplace!
+													?= "^$" $Last_Domain
+		,USR2.UserOUName	AS [Site]				COLOR-DarkSeaGreen !SiteOUReplace!
+													?= "^$" $Last_Site
+		,USR2.UserOUName	AS [Department]			COLOR-DarkSeaGreen !DepartmentOUReplace!
+													?= "^$" $Last_Department
+					,USR.FullUserName	AS [Top_FullName]		COLOR-GoldenRod		HIDE
+					,USR.employeeID		AS [Top_PersonnelID]		COLOR-GoldenRod		HIDE
+					,USR.department		AS [Top_OperatingUnit]	COLOR-GoldenRod		HIDE
+					,USR.division		AS [Top_DptNumber]		COLOR-GoldenRod		HIDE
+					,USR2.FullUserName	AS [Last_FullName]		COLOR-Tomato		HIDE
+					,USR2.employeeID	AS [Last_PersonnelID]	COLOR-Tomato		HIDE
+					,USR2.department	AS [Last_OperatingUnit]	COLOR-Tomato		HIDE
+					,USR2.division		AS [Last_DptNumber]		COLOR-Tomato		HIDE
+					,USR2.mail			AS [Last_Email]			COLOR-Tomato		HIDE
+		,USR.FullUserName	AS [FullName]			COLOR-DarkSeaGreen
+													?= "^$" $Last_FullName
+		,USR.employeeID		AS [PersonnelID]			COLOR-DarkSeaGreen
+													?= "^$" $Last_PersonnelID
+		,USR.department		AS [OperatingUnit]		COLOR-DarkSeaGreen
+													?= "^$" $Last_OperatingUnit
+		,USR.division		AS [DptNumber]			COLOR-DarkSeaGreen
+													?= "^$" $Last_DptNumber
+		,USR.mail			AS [Email]				COLOR-DarkSeaGreen
+													?= "^$" $Last_Email
+		,USR.WindowsNTDomain	AS [TopDomain]		COLOR-GoldenRod
+		,USR2.WindowsNTDomain	AS [LastDomain]		COLOR-Tomato
+%
+
+/*Modified by FontaiV on 23-Jan-2013 17:04*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level Full+Group
+
+SELECT %%_TEMPLATE_ - Base Template - Level Full+User%
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/          Level Full+Groups
+*/
+		,USR3.UserGroupName		AS [TopGroups]	COLOR-GoldenRod
+												REPLACE "(^|\s)\w+[\\\*]*\\*" ""
+												REPLACE ";" ";\n" DEDUPE
+		,USR4.UserGroupName		AS [LastGroups]	COLOR-Tomato
+												REPLACE "(^|\s)\w+[\\\*]*\\*" ""
+												REPLACE ";" ";\n" DEDUPE
+%
+LEFT JOIN
+		SMS_R_User				AS	USR3
+	ON	CON.TopConsoleUser		=	USR3.UniqueUserName
+LEFT JOIN
+		SMS_R_User				AS	USR4
+	ON	RES.LastLogonUserName	=	USR4.UserName
+/*Modified by FontaiV on 12-Dec-2012 12:05*/
+¤
+
+
+_TEMPLATE_ - Base subTemplate - Level Full1+IP
+SelectADS=InstallationDate+CorrectPath, SelectDIRXML=departmentnumber+PXLSBU+PXLoperatingdescription+PXLregion+PXLCountrySys+physicalDeliveryOfficeName
+SELECT %%_TEMPLATE_ - Base subTemplate - Level Full1%
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/       Level Full1+IP
+*/
+		/*,RES.IPAddresses					AS [LastIPv4]		LCASE
+										REPLACE "(\s*;\s*)?([0-9a-f]*:[0-9a-f]*)+" "" TRIM*/
+		,NIC.IPAddress						AS [LastIP]
+										REPLACE "(\s*\comma\s*)?([0-9a-f]*:[0-9a-f]*)+" ""
+										REPLACE "^0.0.0.0;" "" REPLACE ";0.0.0.0" ""
+%
+LEFT JOIN
+		SMS_G_System_NETWORK_ADAPTER_CONFIGURATION AS NIC
+	ON	RES.ResourceID						=	NIC.ResourceID
+/*LEFT JOIN
+		SMS_G_System_NETWORK_ADAPTER_CONFIGURATION AS OLDNIC
+	ON	RES.ResourceID						=	OLDNIC.ResourceID*/
+/*
+WHERE
+AND		NIC.IPAddress						IS NOT NULL
+AND		DatePart(DD,NIC.TimeStamp) <= 7
+AND		DatePart(DD,OLDNIC.TimeStamp) > 7)
+AND		(DateDiff(DD, NIC.TimeStamp, getdate()) < 7
+*/
+/*Modified by FontaiV on 12-Dec-2012 14:20*/
+¤
+
+
+_TEMPLATE_ - Base subTemplate - Level Full1+Firmware
+SelectADS=InstallationDate+CorrectPath, SelectDIRXML=departmentnumber+PXLSBU+PXLoperatingdescription+PXLregion+PXLCountrySys+physicalDeliveryOfficeName
+SELECT DISTINCT
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/       Level Full1+Firmware
+*/
+		RES.NetbiosName						AS [Computer]
+		,RES.ResourceDomainORWorkgroup		AS [Comp_Domain]		UCASE
+		,OPS.LastBootUpTime					AS [LastBootup]		TYPE DATETIME MAXIMUM
+		,OPS.Caption						AS [OperatingSystem]	!OSReplace!
+		,OPS.Caption						AS [Server]			!ServerReplace!
+		,COMP.SystemType					AS [Platform]		!PlatformReplace!
+		,OPS.CSDVersion						AS [ServicePack]		!SPReplace!
+		,ENC.ChassisTypes					AS [Chassis]			!ComputerChassisReplace!
+		,COMP.Model							AS [Model]			!ComputerModelReplace!
+		,ENC.SerialNumber					AS [SerialNumber]	!ComputerSNReplace!
+		,CPU.Name							AS [CPU]				!ComputerCPUReplace!
+		,CPU.MaxClockSpeed					AS [CPU_Ghz]			TYPE FLOAT / 1024 ROUND 1
+		,RAM.TotalPhysicalMemory			AS [RAM_GB]			TYPE FLOAT / 1048576 ROUND 1
+		,DISK.Size							AS [Disk_GB]			TYPE INT SUM / 1024
+/*		,DISK.Manufacturer					AS [Disk_Maker]*/
+		,DISK.Model							AS [Disk_Maker] UCASE
+												REPLACE "\s+\S+\s+DEVICE" "" TRIM
+												REPLACE "^(\S+MTFDDA\S+)$" "MICRON\space$1"
+												REPLACE "^(\S+)$" "?\space$1"
+												REPLACE "^(\S+)\s+(\S+)$" "$1"
+		,DISK.Model							AS [Disk_Model] UCASE
+												REPLACE "\s+\S+\s+DEVICE" "" TRIM
+												REPLACE "^(\S+MTFDDA\S+)$" "MICRON\space$1"
+												REPLACE "^(\S+)$" "?\space$1"
+												REPLACE "^(\S+)\s+(\S+)$" "$2"
+/*		,DISK.FirmwareRevision				AS [Disk_Firmware]*/
+		,BIOS.Version						AS [BIOS_Version]
+		,BIOS.ReleaseDate					AS [BIOS_Release]
+FROM
+		SMS_R_System						AS	RES
+LEFT JOIN
+		SMS_G_System_OPERATING_SYSTEM		AS	OPS
+	ON	RES.ResourceID						=	OPS.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USAGE	AS	CON
+	ON	RES.ResourceID						=	CON.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USER	AS	CON2
+	ON	RES.ResourceID						=	CON2.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_ENCLOSURE		AS	ENC
+	ON	RES.ResourceID						=	ENC.ResourceID
+LEFT JOIN
+		SMS_G_System_PROCESSOR				AS	CPU
+	ON	RES.ResourceID						=	CPU.ResourceID
+LEFT JOIN
+		SMS_G_System_X86_PC_MEMORY			AS	RAM
+	ON	RES.ResourceID 						=	RAM.ResourceID
+LEFT JOIN
+		SMS_G_System_DISK					AS	DISK
+	ON	RES.ResourceID						=	DISK.ResourceID
+LEFT JOIN
+		SMS_G_System_PC_BIOS				AS	BIOS
+	ON	RES.ResourceID						=	BIOS.ResourceID
+LEFT JOIN
+		SMS_G_System_COMPUTER_SYSTEM		AS	COMP
+	ON	RES.ResourceID 						=	COMP.ResourceID
+LEFT JOIN
+		SMS_R_User							AS	USR
+	ON	CON.TopConsoleUser					=	USR.UniqueUserName
+LEFT JOIN
+		SMS_R_User							AS	USR2
+	ON	RES.LastLogonUserName				=	USR2.UserName
+WHERE
+		CON2.SystemConsoleUser				=	CON.TopConsoleUser
+AND		DISK.MediaType						LIKE "Fixed%"
+/*WHERE %_CONDITION_ - Active*/
+/*Modified by FontaiV on 28-Jan-2013 16:24*/
+¤
+
+
+
+
+
+
+
+_TEMPLATE_ - Workstation Hardware Inventory
+SelectADS=InstallationDate, Split=Chassis;Maker;Model, SelectObject=Computers, Large=2
+SELECT DISTINCT
+		RES.NetbiosName					AS [Computer]
+		,ENC.SerialNumber				AS [SerialNumber]	!ComputerSNReplace!
+		,OPS.Caption					AS [OperatingSystem]	!OSReplace!
+		,ENC.ChassisTypes				AS [Chassis]	SPLIT	!ComputerChassisReplace!
+		,COMP.Manufacturer				AS [Maker]	SPLIT	!ComputerMakerReplace!
+		,COMP.Model						AS [Model]	SPLIT	!ComputerModelReplace!
+		,CPU.Name						AS [CPU]				!ComputerCPUReplace!
+		,CPU.MaxClockSpeed				AS [CPU_Ghz]			TYPE FLOAT / 1024 ROUND 1
+		,RAM.TotalPhysicalMemory		AS [RAM_GB]			TYPE FLOAT / 1048576 ROUND 1
+		,DISK.Size						AS [Disk_GB]			TYPE INT SUM / 1024
+FROM
+		SMS_R_System					AS	RES
+LEFT JOIN
+		SMS_G_System_OPERATING_SYSTEM	AS	OPS
+	ON	RES.ResourceID					=	OPS.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_ENCLOSURE	AS	ENC
+	ON	RES.ResourceID					=	ENC.ResourceID
+LEFT JOIN
+		SMS_G_System_PROCESSOR			AS	CPU
+	ON	RES.ResourceID					=	CPU.ResourceID
+LEFT JOIN
+		SMS_G_System_X86_PC_MEMORY		AS	RAM
+	ON	RES.ResourceID 					=	RAM.ResourceID
+LEFT JOIN
+		SMS_G_System_DISK				AS	DISK
+	ON	RES.ResourceID					=	DISK.ResourceID
+LEFT JOIN
+		SMS_G_System_COMPUTER_SYSTEM	AS	COMP
+	ON	RES.ResourceID 					=	COMP.ResourceID
+WHERE
+		DISK.MediaType					LIKE "Fixed%"
+AND		OPS.Caption						NOT LIKE "%Server%"
+/*WHERE %_CONDITION_ - Active*/
+/*Modified by FontaiV on 13-Dec-2012 14:36*/
+¤
+
+
+
+
+_TEMPLATE_ - Base Template - Level PUR
+
+SELECT DISTINCT
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/          Level PUR
+*/
+		RES.NetbiosName					AS [Computer]
+		,RES.SMSUniqueIdentifier		AS [Duplicate]	COUNT
+		,RES.ResourceDomainORWorkgroup	AS [Workgroup]	UCASE
+		,CON.TotalConsoleTime			AS [TotalMin]
+		,CON2.TotalUserConsoleMinutes	AS [TopUserMin]
+		,								AS [TopUser%]	= $TopUserMin / $TotalMin * 100
+														REPLACEINFINITY 0 ROUND 0
+														KEEPIFCOLMATCH $TopUserMin ".+"
+		,CON2.TotalUserConsoleMinutes	AS [TopUser10%]	= $TopUserMin / $TotalMin * 10
+														REPLACEINFINITY 0 ROUND 0
+														KEEPIFCOLMATCH $TopUserMin ".+"
+		,CON.TotalConsoleTime			AS [TotalWeeks]	/ 10080 ROUND 0 REPLACE "^$" "0"
+														KEEPIFCOLMATCH $TopUserMin ".+"
+		,CON2.NumberOfConsoleLogons		AS [Logons100]	/ 100 ROUND 0 REPLACE "^$" "0"
+														KEEPIFCOLMATCH $TopUserMin ".+"
+		,CON.TopConsoleUser				AS [TopUser]		UCASE REPLACE
+														"([^0-9]*[0-9]+[^0-9]*)+\\(.*)"
+														"(Local)$2"
+														REPLACE ".*\\" ""
+		,RES.LastLogonUserName			AS [LastUser]	LCASE
+		,CON.TopConsoleUser				AS [PUCertainty]
+														= $TopUser KEEPIFMATCH "[^(]+"
+														REPLACE ".+"		"Certain"
+														KEEPIFCOLMATCH	$TotalWeeks
+														"(.*;)*([1-9]|[0-9]{3})(\.[0-9]+)*"
+														REPLACE "^$"		"Uncertain"
+		,CON.TopConsoleUser				AS [PrimaryUser]	= $TopUser
+														KEEPIFCOLMATCH $PUCertainty "Certain"
+														?= "^$" $LastUser UCASE
+		,OPS.LastBootUpTime				AS [LastBootup]	TYPE DATETIME MAXIMUM
+FROM
+		SMS_R_System						AS	RES
+LEFT JOIN
+		SMS_G_System_OPERATING_SYSTEM		AS	OPS
+	ON	RES.ResourceID						=	OPS.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USAGE	AS	CON
+	ON	RES.ResourceID						=	CON.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USER	AS	CON2
+	ON	RES.ResourceID						=	CON2.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_ENCLOSURE		AS	ENC
+	ON	RES.ResourceID						=	ENC.ResourceID
+LEFT JOIN
+		SMS_G_System_COMPUTER_SYSTEM		AS	COMP
+	ON	RES.ResourceID 						=	COMP.ResourceID
+LEFT JOIN
+		SMS_R_User							AS	USR
+	ON	CON.TopConsoleUser					=	USR.UniqueUserName
+LEFT JOIN
+		SMS_R_User							AS	USR2
+	ON	RES.LastLogonUserName				=	USR2.UserName
+WHERE
+		CON2.SystemConsoleUser				=	CON.TopConsoleUser
+AND	RES.Active = 1
+AND	RES.Obsolete = 0
+AND	RES.Client = 1
+/*Modified by FontaiV on 21-Nov-2012 02:46*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level Zero
+
+SELECT DISTINCT
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/          Level Zero 
+*/
+		RES.NetbiosName					AS [Computer]
+		,RES.ResourceDomainORWorkgroup	AS [Comp_Domain]	UCASE
+FROM
+		SMS_R_System						AS	RES
+LEFT JOIN
+		SMS_G_System_OPERATING_SYSTEM		AS	OPS
+	ON	RES.ResourceID						=	OPS.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USAGE	AS	CON
+	ON	RES.ResourceID						=	CON.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_ENCLOSURE		AS	ENC
+	ON	RES.ResourceID						=	ENC.ResourceID
+LEFT JOIN
+		SMS_G_System_COMPUTER_SYSTEM		AS	COMP
+	ON	RES.ResourceID 						=	COMP.ResourceID
+LEFT JOIN
+		SMS_R_User							AS	USR
+	ON	CON.TopConsoleUser					=	USR.UniqueUserName
+LEFT JOIN
+		SMS_R_User							AS	USR2
+	ON	RES.LastLogonUserName				=	USR2.UserName
+/*WHERE %_CONDITION_ - Active*/
+/*Modified by FontaiV on 1-Mar-2013 14:29*/
+¤
+
+
+_TEMPLATE_ - Base Template - Level PUR+User
+
+SELECT DISTINCT
+/*
+ _ __               ______               _          
+( /  )             (  /                 //     _/_  
+ /--< __,  (   _     /_  _ _ _    ,_   // __,  /  _ 
+/___/(_/(_/_)_(/_  _/(/_/ / / /__/|_)_(/_(_/(_(__(/_
+                                 /|                 
+                                (/          Level PUR+User
+*/
+		RES.NetbiosName					AS [Computer]
+		,RES.SMSUniqueIdentifier		AS [Duplicate]	COUNT
+		,RES.ResourceDomainORWorkgroup	AS [Workgroup]	UCASE
+		,CON.TotalConsoleTime			AS [TotalMin]
+		,CON2.TotalUserConsoleMinutes	AS [TopUserMin]
+		,								AS [TopUser%]	= $TopUserMin / $TotalMin * 100
+														REPLACEINFINITY 0 ROUND 0
+														KEEPIFCOLMATCH $TopUserMin ".+"
+		,CON2.TotalUserConsoleMinutes	AS [TopUser10%]	= $TopUserMin / $TotalMin * 10
+														REPLACEINFINITY 0 ROUND 0
+														KEEPIFCOLMATCH $TopUserMin ".+"
+		,CON.TotalConsoleTime			AS [TotalWeeks]	/ 10080 ROUND 0 REPLACE "^$" "0"
+														KEEPIFCOLMATCH $TopUserMin ".+"
+		,CON2.NumberOfConsoleLogons		AS [Logons100]	/ 100 ROUND 0 REPLACE "^$" "0"
+														KEEPIFCOLMATCH $TopUserMin ".+"
+
+		,CON.TopConsoleUser				AS [TopUser]		UCASE REPLACE
+														"([^0-9]*[0-9]+[^0-9]*)+\\(.*)"
+														"(Local)$2"
+														REPLACE ".*\\" ""
+														COLOR-GoldenRod
+
+		,RES.LastLogonUserName			AS [LastUser]	LCASE
+														COLOR-Tomato
+
+		,CON.TopConsoleUser				AS [PUCertainty]
+														= $TopUser KEEPIFMATCH "[^(]+"
+														REPLACE ".+"		"Certain"
+														KEEPIFCOLMATCH	$TotalWeeks
+														"(.*;)*([1-9]|[0-9]{3})(\.[0-9]+)*"
+														REPLACE "^$"		"Uncertain"
+														COLOR-GoldenRod
+
+		,CON.TopConsoleUser				AS [PrimaryUser]	= $TopUser
+														KEEPIFCOLMATCH $PUCertainty "Certain"
+														?= "^$" $LastUser UCASE
+														COLOR-GoldenRod
+
+		,USR.UserOUName					AS [PUDomain]		!DomainOUReplace!
+															COLOR-GoldenRod
+		,USR.UserOUName					AS [PUSite]			!SiteOUReplace!
+															COLOR-GoldenRod
+		,USR.UserOUName					AS [PUDepartment]	!DepartmentOUReplace!
+															COLOR-GoldenRod
+		,USR.FullUserName				AS [PUFullName]		COLOR-GoldenRod
+		,USR.employeeID					AS [PUPersonnelID]	COLOR-GoldenRod
+		,USR.department					AS [PUOperatingUnit]	COLOR-GoldenRod
+		,USR.division					AS [PUDptNumber]		COLOR-GoldenRod
+		
+
+		,USR2.WindowsNTDomain			AS [LastDomain]		COLOR-Tomato
+
+		,OPS.LastBootUpTime				AS [LastBootup]		TYPE DATETIME MAXIMUM
+															COLOR-Tomato
+
+FROM
+		SMS_R_System						AS	RES
+LEFT JOIN
+		SMS_G_System_OPERATING_SYSTEM		AS	OPS
+	ON	RES.ResourceID						=	OPS.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USAGE	AS	CON
+	ON	RES.ResourceID						=	CON.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_CONSOLE_USER	AS	CON2
+	ON	RES.ResourceID						=	CON2.ResourceID
+LEFT JOIN
+		SMS_G_System_SYSTEM_ENCLOSURE		AS	ENC
+	ON	RES.ResourceID						=	ENC.ResourceID
+LEFT JOIN
+		SMS_G_System_COMPUTER_SYSTEM		AS	COMP
+	ON	RES.ResourceID 						=	COMP.ResourceID
+LEFT JOIN
+		SMS_R_User							AS	USR
+	ON	CON.TopConsoleUser					=	USR.UniqueUserName
+LEFT JOIN
+		SMS_R_User							AS	USR2
+	ON	RES.LastLogonUserName				=	USR2.UserName
+WHERE
+		CON2.SystemConsoleUser				=	CON.TopConsoleUser
+/*
+AND	RES.Active = 1
+AND	RES.Obsolete = 0
+AND	RES.Client = 1*/
+/*Modified by FontaiV on 19-May-2015 11:59*/
+¤
+
